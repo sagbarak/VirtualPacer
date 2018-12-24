@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Card from '../components/card';
+import Button from 'react-bootstrap/lib/Button';
+import Timer from '../components/timer';
 import blankCard from '../graphics/blank.png';
 import card1 from '../graphics/card1.jpg';
 import card2 from '../graphics/card2.jpg';
@@ -51,7 +52,6 @@ const cardStyle={
 const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve,milliseconds));
 }
-
 class GameBoard extends Component {
     imageList=[card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12,card13,card14,card15];
     state = { 
@@ -61,9 +61,46 @@ class GameBoard extends Component {
         boardPairs: this.initialBoardPairs(this.props.rows,this.props.columns),
         numOfOpenCars: 0,
         lastIndex: -1,
-        matchCounter:0
+        matchCounter:0,
     }
 
+        //render board base on flipCard function
+        renderBoard(){
+            return(
+                this.state.board.map((image,index)=>{ 
+                    return (<img onClick={()=>this.flipCard(index)} key={index} src={image} style={cardStyle} />)})
+                );
+        }
+    
+
+        render() { 
+            return ( <div>
+                <div style={boardStyle}>
+                    <h1 style={titleStyle}>Memory Game</h1>
+                    <div>
+                        <Button onClick={()=>this.resetGame()} type="button" class="btn btn-secondary">Reset</Button>
+                    </div>
+                    <Timer />
+                    <div style={cardWrapper}>
+                       {this.renderBoard()}
+                       {this.checkIfGameOver()}
+                    </div>
+                    
+                </div>
+            </div> );
+        }
+
+    resetGame(){
+        let newState = this.state;
+        newState.board = this.initialBoard(this.props.rows,this.props.columns);
+        newState.boardImages= this.chooseImages(this.props.rows,this.props.columns);
+        newState.boardStates= this.initialBoardState(this.props.rows,this.props.columns);
+        newState.boardPairs= this.initialBoardPairs(this.props.rows,this.props.columns);
+        newState.numOfOpenCars= 0;
+        newState.lastIndex= -1;
+        newState.matchCounter=0;
+        this.setState(newState);
+    }
     flipCard(index){
         let StateChange = this.state;
         
@@ -97,34 +134,14 @@ class GameBoard extends Component {
         if(StateChange.numOfOpenCars===1){ //if only one card is open then save the index of the last card
             StateChange.lastIndex=index;
         }
-        if(StateChange.matchCounter===(StateChange.board.length/2)){
-            alert("Woo-hoo!!");
-        }
         this.setState(StateChange);
     }
 
-
-
-    //render board base on Card components
-    renderBoard(){
-        return(this.state.board.map((image,index)=>{ return (<img onClick={()=>this.flipCard(index)} key={index} src={image} style={cardStyle} />)}));
+    checkIfGameOver(){
+        if(this.state.matchCounter===(this.state.board.length/2)){
+            alert("Woo-hoo!!");
+        }
     }
-
-    render() { 
-        return ( <div>
-            <div style={boardStyle}>
-                <h1 style={titleStyle}>Memory Game</h1>
-                <div style={cardWrapper}>
-                    {this.renderBoard()}
-                </div>
-            </div>
-        </div> );
-    }
-
-
-
-
-
 
     shuffleImageList(imageList) {
         for (let i = imageList.length - 1; i > 0; i--) {
@@ -140,14 +157,13 @@ class GameBoard extends Component {
         let selectedImage;
         let imageList = this.imageList;
         const numOfPics=(rows*columns);
-        while(data.length!=numOfPics){
+        while(data.length!==numOfPics){
            selectedImage = imageList[Math.floor(Math.random()*imageList.length)];
            if(!data.includes(selectedImage)){ //make there's no two pairs of the same picture
                 data.push(selectedImage,selectedImage);
            }
         }
         data=this.shuffleImageList(data);
-        //data=this.transferImageArrayTo2DArray(data,rows,columns);
         return data;
     }
     
@@ -177,24 +193,6 @@ class GameBoard extends Component {
         }
         return boardState;
     }
-
-    transferImageArrayTo2DArray(board,rows,columns){
-        let newBoard=[];
-        let index=0;
-        for(let r=0;r<rows;r++){
-            newBoard[r]=[];
-                for(let c=0;c<columns;c++){
-                    newBoard[r][c]=board[index];
-                    index++;
-                }
-            }
-        return newBoard;
-    }
-
-    cardfliped(){
-        console.log(2 + " fliped!");
-    }
-
 }
  
 export default GameBoard;
