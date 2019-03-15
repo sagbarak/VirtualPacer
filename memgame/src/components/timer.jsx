@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 const timerStyle={
     border: "2px solid black",
-    textAlign: "center"
+    borderRadius: "10px",
+    textAlign: "center",
+    padding: "0.5%",
+    //width: "60%",
+    //margin: "auto",
+    position: "auto",
+    backgroundColor: 'rgba(255,255,255,0.6)'
 }
 
 class Timer extends Component {
@@ -42,7 +48,6 @@ class Timer extends Component {
     render() { 
         return (
         <div style={timerStyle}>
-            <button onClick={()=>this.resetTimer()}>Reset</button>
             {this.getMinutes()} : {this.getSeconds()} 
             <button onClick={()=>this.startClock()}>Start</button>
         </div> 

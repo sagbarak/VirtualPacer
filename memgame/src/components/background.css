@@ -1,0 +1,8 @@
+.bgStyle{
+    background-image: url(../graphics/back3.jpg);
+    height: 100%;
+    padding: 2%;
+    background-position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

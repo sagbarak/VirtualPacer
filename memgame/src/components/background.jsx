@@ -1,25 +1,24 @@
 import React, { Component } from 'react';
 import background from '../graphics/back3.jpg';
-import GameBoard from '../components/gameboard';
-
+import MemGame from '../components/MemGame';
+import Instructions from '../pages/Instructions';
+import '../components/background.css';
 const backgroundStyle = {
     width: "100%",
-    height: "853px",
-    backgroundSize: 'cover',
+    height: "100%",
+    position: "center",
+    backgroundRepeat: "no-reapet",
+    backgroundSize: "cover",
     backgroundImage: `url(${background})`
 }
 
 class Background extends Component {
-    state = { 
-  
-     }
-
-    render() { 
-        return ( <div>
-            <section style={ backgroundStyle }>
-                <GameBoard rows="5" columns="2" />
-            </section>
-        </div> );
+     render() { 
+        return ( 
+            <div className='bgStyle'>
+                <Instructions />
+            </div>
+        );
     }
 }
  
