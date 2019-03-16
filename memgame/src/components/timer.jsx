@@ -4,8 +4,6 @@ const timerStyle={
     borderRadius: "10px",
     textAlign: "center",
     padding: "0.5%",
-    //width: "60%",
-    //margin: "auto",
     position: "auto",
     backgroundColor: 'rgba(255,255,255,0.6)'
 }
@@ -14,7 +12,8 @@ class Timer extends Component {
     state = { 
         seconds: 0,
         clockRun: false,
-        resetCondition: false
+        clockStopped: false,
+        firstClick: this.props.firstClick
     }
     
     resetTimer(){
@@ -32,11 +31,19 @@ class Timer extends Component {
         let minutes = ('0' + Math.floor((this.state.seconds / 60)).toString()).slice(-2);
         return (minutes);
     }
+  
     startClock(){
-        if(this.state.clockRun===false){
+        if(this.props.firstClick && this.state.clockRun===false){
             this.setState({clockRun:true});
-            this.increaseSeconds()
-        }    
+            this.increaseSeconds();
+        }
+    }
+
+    stopClock(){
+        if(this.props.isFinished && !this.state.clockStopped){
+            this.setState({clockRun:false,clockStopped:true});
+            clearInterval(this.timer);
+        }
     }
 
     increaseSeconds(){
@@ -49,7 +56,8 @@ class Timer extends Component {
         return (
         <div style={timerStyle}>
             {this.getMinutes()} : {this.getSeconds()} 
-            <button onClick={()=>this.startClock()}>Start</button>
+            {this.startClock()}
+            {this.stopClock()}
         </div> 
         );
     }

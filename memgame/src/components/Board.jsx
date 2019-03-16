@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Card from './Card';
 import uuid from 'uuid';
 import '../components/background.css';
-import {BrowserRouter as Router, Route } from 'react-router-dom';
-import Button from 'react-bootstrap/lib/Button';
 import Timer from './timer';
 import FinishPopup from './FinishPopup';
 
@@ -16,7 +14,9 @@ const boardStyle = {
 };
 
 const titleStyle={
+    width: "100%",
     color: "black",
+    position: "center",
     margin: "auto",
     textAlign: "center"
 }
@@ -27,11 +27,21 @@ const cardWrapper={
     width: "60%",
     height: "80%",
 }
+const btnStyle={
+    width: "50px",
+    height: "25px",
+    margin: "auto",
+    textAlign: "center",
+
+    fontSize: "13px"
+
+}
 
 const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve,milliseconds));
 }
-
+let rowsVar = 2;
+let columnsVar = 5; 
 
 class Board extends Component {
     state = { 
@@ -39,8 +49,9 @@ class Board extends Component {
         numOfOpenCards: 0,
         lastId: "",
         matchCounter:0,
-        resetRequest: false,
-        isFinished: false
+        isFinished: false,
+        firstClick: false,
+        resetRequest: false
     }
 
         renderBoard(){
@@ -55,32 +66,32 @@ class Board extends Component {
         render() { 
             return ( 
                 <div style={boardStyle}>
-                    <h1 style={titleStyle}>Memory Game</h1>
-                    <Timer reset={this.state.resetRequest} />
+                    <div style={{margin:"auto"}}><h1 style={titleStyle}>Memory Game</h1></div>
+                    <button style={btnStyle} onClick={this.props.openInsturction}>instruction</button>
+                    <Timer firstClick={this.state.firstClick} isFinished={this.state.isFinished} />
                     <div>
-                        <Button onClick={()=>this.resetGame()} type="button" className="btn btn-secondary">Reset</Button>
+                        <button style={btnStyle} onClick={()=>this.resetGame(rowsVar,columnsVar)}>Reset</button>
                     </div>
                     <div style={cardWrapper}>
                        {this.renderBoard()}
                        {this.checkIfGameOver()}
-                       {this.state.isFinished ? (
-                       <FinishPopup nextLevel={this.props.nextLevel} />) : null
-                       }
-
+                       {this.state.isFinished ? (<FinishPopup nextLevel={()=>this.resetGame(rowsVar+1,columnsVar+1)} />) : null }
                     </div>
-                    
                 </div>
             );
         }
 
-    resetGame(){
-        let newState = this.state;
-        newState.board = this.initialBoard(this.props.rows,this.props.columns);
-        newState.numOfOpenCars= 0;
+        
+    resetGame=(rows,columns)=>{
+        rowsVar=rows;
+        columnsVar=columns;
+        let newState = Object.assign({},this.state);
+        newState.board = this.initialBoard(rows,columns);
+        newState.numOfOpenCars = 0;
         newState.lastId="";
-        newState.matchCounter=0;
-        newState.resetRequest=true;
         newState.isFinished=false;
+        newState.matchCounter=0;
+        newState.firstClick=false;
         this.setState(newState);
     }
 
@@ -88,6 +99,9 @@ class Board extends Component {
         let newState = this.state;
         console.log("id " + id);
         console.log("last id " + newState.lastId);
+        if(!newState.firstClick){
+            newState.firstClick=true;
+        }
         newState.board.map(card=>{
             if(card.id===id){ //find card by id
                 if(!card.faceUp){ //if card is face down, you can flip it
@@ -127,9 +141,7 @@ class Board extends Component {
     checkIfGameOver(){
         if(this.state.matchCounter===(this.state.board.length/2)){
             sleep(200).then(()=>{
-                //alert("woo-hoo!!");  
                 this.setState({isFinished: true});
-                //this.resetGame();
             })
             
         }
