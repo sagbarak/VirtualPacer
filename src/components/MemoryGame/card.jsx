@@ -7,7 +7,7 @@ const cardStyle={
     width:"20%",
     height:"40%",
     padding: 10,
-    borderRadius: 60,
+    borderRadius: 70,
     border: "black",
     cursor: 'pointer'
 }

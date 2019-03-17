@@ -6,9 +6,8 @@ import FinishPopup from './FinishPopup';
 
 const boardStyle = {
     borderRadius: "10px",
-    width: "70%",
-    height: "100%",
-    padding: "2%",
+    width: "60%",
+    height: "100vh",
     backgroundColor: 'rgba(245,232,196,0.6)',
 };
 
@@ -21,7 +20,6 @@ const titleStyle={
 }
 
 const cardWrapper={
-
     margin: "auto",
     width: "60%",
     height: "80%",
@@ -65,16 +63,18 @@ class Board extends Component {
         render() { 
             return ( 
                 <div style={boardStyle}>
-                    <div style={{margin:"auto"}}><h1 style={titleStyle}>Memory Game</h1></div>
-                    <button style={btnStyle} onClick={this.props.openInsturction}>instruction</button>
-                    <Timer firstClick={this.state.firstClick} isFinished={this.state.isFinished} />
                     <div>
-                        <button style={btnStyle} onClick={()=>this.resetGame(rowsVar,columnsVar)}>Reset</button>
-                    </div>
-                    <div style={cardWrapper}>
-                       {this.renderBoard()}
-                       {this.checkIfGameOver()}
-                       {this.state.isFinished ? (<FinishPopup nextLevel={()=>this.resetGame(rowsVar+1,columnsVar+1)} />) : null }
+                        <div style={{margin:"auto"}}><h1 style={titleStyle}>Memory Game</h1></div>
+                        <button style={btnStyle} onClick={this.props.openInsturction}>instruction</button>
+                        <Timer firstClick={this.state.firstClick} isFinished={this.state.isFinished} />
+                        <div>
+                            <button style={btnStyle} onClick={()=>this.resetGame(rowsVar,columnsVar)}>Reset</button>
+                        </div>
+                        <div style={cardWrapper}>
+                            {this.renderBoard()}
+                            {this.checkIfGameOver()}
+                            {this.state.isFinished ? (<FinishPopup nextLevel={()=>this.resetGame(rowsVar+1,columnsVar+1)} />) : null }
+                        </div>
                     </div>
                 </div>
             );
