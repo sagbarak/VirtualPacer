@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import background from '../graphics/back3.jpg';
-import MemGame from '../components/MemGame';
+import MemGame from '../components/MemoryGame/MemGame';
 import '../components/background.css';
 const backgroundStyle = {
     width: "100%",

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Popup from 'react-modal';
 import './FinishPopup.css';
 const popupStyle = {
     top                   : '50%',
