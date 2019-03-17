@@ -15,8 +15,10 @@ class App extends Component {
             <li><Link to={'/MemoryGame'} className="nav-link">MemoryGame</Link></li>
           </ul>
           </nav>
+          <Switch>
               <Route path='/MemoryGame' component={MemoryGame} />
               <Route path='/PuzzleGame' component={PuzzleGame} />
+          </Switch>
         </div>
       </Router>
     );

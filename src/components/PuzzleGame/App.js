@@ -9,6 +9,7 @@ import GridLayout from 'react-grid-layout';
 import { Button } from 'react-bootstrap';
 import Tiger from '../../graphics/image.jpg';
 
+
 class App extends Component {
     constructor(props) {
         super(props);

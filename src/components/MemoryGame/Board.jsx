@@ -3,7 +3,8 @@ import Card from './card';
 import uuid from 'uuid';
 import Timer from './timer';
 import FinishPopup from './FinishPopup';
-
+import 'bootstrap/dist/css/bootstrap.css';
+import { Button } from 'react-bootstrap';
 const boardStyle = {
     borderRadius: "10px",
     width: "60%",
@@ -65,10 +66,10 @@ class Board extends Component {
                 <div style={boardStyle}>
                     <div>
                         <div style={{margin:"auto"}}><h1 style={titleStyle}>Memory Game</h1></div>
-                        <button style={btnStyle} onClick={this.props.openInsturction}>instruction</button>
+                        <Button variant="info" onClick={this.props.openInsturction}>Instruction</Button>
                         <Timer firstClick={this.state.firstClick} isFinished={this.state.isFinished} />
                         <div>
-                            <button style={btnStyle} onClick={()=>this.resetGame(rowsVar,columnsVar)}>Reset</button>
+                            <Button variant="info" onClick={()=>this.resetGame(rowsVar,columnsVar)}>Reset</Button>
                         </div>
                         <div style={cardWrapper}>
                             {this.renderBoard()}
