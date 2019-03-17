@@ -6,7 +6,7 @@ import FinishPopup from './FinishPopup';
 
 const boardStyle = {
     borderRadius: "10px",
-    width: "60%",
+    width: "70%",
     height: "100%",
     padding: "2%",
     backgroundColor: 'rgba(245,232,196,0.6)',
