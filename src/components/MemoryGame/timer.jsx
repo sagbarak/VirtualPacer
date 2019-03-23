@@ -9,13 +9,16 @@ const timerStyle={
 }
 
 class Timer extends Component {
-    state = { 
-        seconds: 0,
-        clockRun: false,
-        clockStopped: false,
-        firstClick: this.props.firstClick
+    constructor(props){
+        super(props);
+        this.state = {
+            seconds: 0,
+            clockRun: false,
+            clockStopped: true,
+            result: 0
+        }
     }
-    
+     
     resetTimer(){
         if(this.state.clockRun===true){
             clearInterval(this.Timer);
@@ -33,31 +36,57 @@ class Timer extends Component {
     }
   
     startClock(){
-        if(this.props.firstClick && this.state.clockRun===false){
-            this.setState({clockRun:true});
+        if(this.props.firstClick && (!this.state.clockRun)){
+            this.setState({clockRun:true,clockStopped:false});
             this.increaseSeconds();
         }
     }
 
     stopClock(){
-        if(this.props.isFinished && !this.state.clockStopped){
+        if((!this.props.isFinished) && (!this.state.clockStopped)){
             this.setState({clockRun:false,clockStopped:true});
-            clearInterval(this.timer);
+            clearInterval(this.Timer);
         }
     }
 
     increaseSeconds(){
         setInterval(()=>{
-            this.setState({seconds: this.state.seconds + 1 });
+            if(!this.props.isFinished){
+                this.setState({seconds: this.state.seconds + 1});
+            }else{
+            clearInterval(this);
+            this.setState({result:this.state.seconds});
+            }
         },1000)    
+    }
+
+    renderStartStop(){
+        let newState=this.state;
+        if(this.props.firstClick && (!this.props.isFinished)){
+            if(this.state.clockRun===false){
+                newState.clockRun=true;
+                newState.clockStopped=false;
+                this.setState(newState);
+                this.increaseSeconds();
+            }
+        }
+        if(this.props.firstClick && this.props.isFinished && this.state.clockStopped===false){
+            newState.clockRun=false;
+            newState.clockStopped=true;
+            newState.result=this.state.seconds;
+            this.setState(newState);
+            clearInterval(this.Timer);
+            console.log("time stopped");
+            let result = this.state.result;
+            this.props.onStop(result);
+        }
     }
 
     render() { 
         return (
         <div style={timerStyle}>
             {this.getMinutes()} : {this.getSeconds()} 
-            {this.startClock()}
-            {this.stopClock()}
+            {this.renderStartStop()}
         </div> 
         );
     }

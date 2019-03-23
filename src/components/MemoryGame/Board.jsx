@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import Card from './card';
 import uuid from 'uuid';
 import Timer from './timer';
-import FinishPopup from './FinishPopup';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'react-bootstrap';
+import Modal from 'react-modal';
 const boardStyle = {
     borderRadius: "10px",
     width: "60%",
@@ -30,27 +30,30 @@ const btnStyle={
     height: "25px",
     margin: "auto",
     textAlign: "center",
-
     fontSize: "13px"
-
 }
 
 const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve,milliseconds));
 }
-let rowsVar = 2;
-let columnsVar = 5; 
 
-class Board extends Component {
-    state = { 
-        board: this.initialBoard(this.props.rows,this.props.columns),
-        numOfOpenCards: 0,
-        lastId: "",
-        matchCounter:0,
-        isFinished: false,
-        firstClick: false,
-        resetRequest: false
+class Board extends Component {   
+    constructor(props){
+        super(props);
+        this.state={
+            board: this.initialBoard(this.props.rows,this.props.columns),
+            numOfOpenCards: 0,
+            lastId: "",
+            matchCounter:0,
+            clickCount: 0, 
+            isFinished: false,
+            firstClick: false,
+            resetRequest: false,
+            time: 0
+        }
+        this.resetGame=this.resetGame.bind(this);
     }
+    
 
         renderBoard(){
             return( 
@@ -62,34 +65,54 @@ class Board extends Component {
     
 
         render() { 
-            return ( 
-                <div style={boardStyle}>
+            return (  
+                <div>
                     <div>
-                        <div style={{margin:"auto"}}><h1 style={titleStyle}>Memory Game</h1></div>
-                        <Button variant="info" onClick={this.props.openInsturction}>Instruction</Button>
-                        <Timer firstClick={this.state.firstClick} isFinished={this.state.isFinished} />
+                        <Modal isOpen={this.state.isFinished}>
+                        <h3>Well Done!!</h3>
+                        <p>Time: {this.state.time}
+                        </p>
+
+                        <Button onClick={()=>{this.handleNextLevel()}}>Next Level</Button>
+                        <Button onClick={()=>{this.resetGame()}}>Reset</Button>
+                        <Button onClick={()=>{this.handleCloseModal()}}>Close</Button>
+                        </Modal>
+                    </div>
+                    <div style={boardStyle}>
                         <div>
-                            <Button variant="info" onClick={()=>this.resetGame(rowsVar,columnsVar)}>Reset</Button>
-                        </div>
-                        <div style={cardWrapper}>
-                            {this.renderBoard()}
-                            {this.checkIfGameOver()}
-                            {this.state.isFinished ? (<FinishPopup nextLevel={()=>this.resetGame(rowsVar+1,columnsVar+1)} />) : null }
+                            <div style={{margin:"auto"}}><h1 style={titleStyle}>Memory Game</h1></div>
+                            <Button variant="info" onClick={this.props.openInsturction}>Instruction</Button>
+                            <Timer firstClick={this.state.firstClick} isFinished={this.state.isFinished} onStop={this.setTimeResult} />
+                            <div>
+                                <Button variant="info" onClick={()=>this.resetGame()}>Reset</Button>
+                            </div>
+                            <div style={cardWrapper}>
+                                {this.renderBoard()}
+                            </div>
                         </div>
                     </div>
                 </div>
             );
         }
-
+    setTimeResult = (result) =>{
+        this.setState({time: result});
+        console.log(this.state.time);
+    }
+    handleCloseModal(){
+        this.setState({isFinished: false});
+    }
+    handleNextLevel(){
+        this.handleCloseModal();
+        this.props.nextLevel();
         
-    resetGame=(rows,columns)=>{
-        rowsVar=rows;
-        columnsVar=columns;
+    }
+    resetGame=()=>{
         let newState = Object.assign({},this.state);
-        newState.board = this.initialBoard(rows,columns);
+        newState.board = this.initialBoard(this.props.rows,this.props.columns);
         newState.numOfOpenCars = 0;
         newState.lastId="";
         newState.isFinished=false;
+        newState.clickCount=0;
         newState.matchCounter=0;
         newState.firstClick=false;
         this.setState(newState);
@@ -105,6 +128,7 @@ class Board extends Component {
         newState.board.map(card=>{
             if(card.id===id){ //find card by id
                 if(!card.faceUp){ //if card is face down, you can flip it
+                    newState.clickCount++;
                     if(newState.numOfOpenCards<2){ // if less then 2 cards are open you can flip with no check
                         card.faceUp=true;
                         newState.numOfOpenCards+=1;
@@ -135,16 +159,19 @@ class Board extends Component {
         })
         newState.lastId=id;
         this.setState(newState);
+        this.checkIfGameOver();
     }
 
 
     checkIfGameOver(){
-        if(this.state.matchCounter===(this.state.board.length/2)){
-            sleep(200).then(()=>{
-                this.setState({isFinished: true});
-            })
-            
-        }
+        //if(!this.state.isFinished){
+            if(this.state.matchCounter===(this.state.board.length/2)){
+                sleep(200).then(()=>{
+                    this.setState({isFinished: true});
+                })
+                
+            }
+        //}
     }
 
     shuffleImageList(imageList) {

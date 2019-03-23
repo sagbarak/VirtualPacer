@@ -47,17 +47,16 @@ const modalStyle ={
         }
 }
 class MemGame extends Component {
-    rows = 2;
-    columns = 5;
-    state = { 
+   state={
         imageList: [
             card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12,card13,card14,card15,card16,card17
         ],
-        rows: 2,
-        columns: 5,
-        instruction: true
-    }
-
+        rows: this.props.rows,
+        columns: this.props.columns,
+        instruction: true,
+     }
+    
+   
     handleCloseModal(){
         this.setState({instruction:false});
     }
@@ -65,7 +64,8 @@ class MemGame extends Component {
     handleOpenModal(){
         this.setState({instruction:true});
     }
-    render() {   
+    render() { 
+        
         return ( 
             <div>
                 <Modal isOpen={this.state.instruction} style={modalStyle}>
@@ -75,10 +75,13 @@ class MemGame extends Component {
                     </p>
                     <Button className="btn btn-success" onClick={this.handleCloseModal.bind(this)}>OK</Button>
                 </Modal>
-                <Board rows={this.state.rows} columns={this.state.columns} imageList={this.state.imageList} openInsturction={this.handleOpenModal.bind(this)}/>
+                    <Board rows={this.state.rows} columns={this.state.columns} imageList={this.state.imageList} 
+                        openInsturction={this.handleOpenModal.bind(this)} nextLevel={this.props.nextLevel} />
             </div>
          );
     }
+    
+        
 }
  
 
