@@ -20,6 +20,7 @@ import card15 from '../../graphics/card15.jpg';
 import card16 from '../../graphics/card16.png';
 import card17 from '../../graphics/card17.jpg';
 
+
 Modal.setAppElement(document.getElementById('root'))
 
 const modalStyle ={
@@ -67,7 +68,7 @@ class MemGame extends Component {
     render() { 
         
         return ( 
-            <div>
+            <div className='bgStyle'>
                 <Modal isOpen={this.state.instruction} style={modalStyle}>
                     <h3>Memory Game</h3>
                     <p>In this game you need to find pair of cards.

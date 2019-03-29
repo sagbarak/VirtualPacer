@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import MemGame from './MemGame';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 
 class ChooseLevel extends Component {
@@ -18,7 +17,7 @@ class ChooseLevel extends Component {
     
     render() { 
         return ( 
-            <div>
+            <div className='bgStyle'>
             {this.state.screenMenu ?
             <div>
                 <Button onClick={()=>this.handleLevelClick(1)}>Easy</Button>
