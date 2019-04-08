@@ -76,7 +76,7 @@ class MemGame extends Component {
                     </p>
                     <Button className="btn btn-success" onClick={this.handleCloseModal.bind(this)}>OK</Button>
                 </Modal>
-                    <Board rows={this.state.rows} columns={this.state.columns} imageList={this.state.imageList} 
+                    <Board rows={this.props.rows} columns={this.props.columns} imageList={this.state.imageList} 
                         openInsturction={this.handleOpenModal.bind(this)} nextLevel={this.props.nextLevel} />
             </div>
          );

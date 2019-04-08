@@ -26,7 +26,7 @@ class ChooseLevel extends Component {
                 <Button onClick={()=>this.handleLevelClick(4)}>Crazy</Button>
             </div>
             :
-            <MemGame rows={this.state.rows} columns={this.state.columns} nextLevel={this.increaseLevel} />
+            <MemGame rows={this.state.rows} columns={this.state.columns} nextLevel={()=>{this.increaseLevel()}} />
             }
             </div>
          );

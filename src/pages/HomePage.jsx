@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import MemoryGame from '../components/MemoryGame/MemGame';
+import MemoryGame from '../components/MemoryGame/ChooseLevel';
 import PuzzleGame from '../components/PuzzleGame/App'
 
 class App extends Component {
