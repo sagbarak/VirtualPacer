@@ -101,10 +101,11 @@ class Board extends Component {
     handleCloseModal(){
         this.setState({isFinished: false});
     }
+
     handleNextLevel(){
         this.handleCloseModal();
         this.props.nextLevel();
-        
+        this.resetGame();
     }
     resetGame=()=>{
         let newState = Object.assign({},this.state);
