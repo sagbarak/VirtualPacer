@@ -6,6 +6,8 @@ class Bord extends Component {
     render() {
         let gridSize = this.props.gridSize;
         let bMap= [];
+        let startTimer=this.props.startTime;
+        let isFinished= this.props.isFinished;
         for (let i=0; i<gridSize * gridSize; i++) {
         
        
@@ -15,9 +17,9 @@ class Bord extends Component {
                bMap.push(boxOrder);
             }
        // let bMap= this.props.boxMap;
-        console.log("bmap = = = = " +bMap)
+        //console.log("bmap = = = = " +bMap)
         let str="repeat("+this.props.gridSize+", auto)" ;
-        let bordMap = bMap.map(bm => <PuzzleBord gridSize={this.props.gridSize} boxOrder= {bm.BOrder} />);
+        let bordMap = bMap.map(bm => <PuzzleBord gridSize={this.props.gridSize} startTime={this.props.startTime} isFinished={this.props.isFinished} boxOrder= {bm.BOrder} />);
           
         const bord_style = {
             

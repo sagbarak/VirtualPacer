@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import './App.css'
+import App from './App';
+import Modal from 'react-modal';
+import { Button } from 'react-bootstrap';
 
 class PuzzleBord extends Component {
-
+    state = {
+        startTimer: this.props.startTime,
+       isFinished: this.props.isFinished
+        
+    }
     checkWin()
     {
         let flag=true;
@@ -31,7 +38,15 @@ class PuzzleBord extends Component {
         }
         
         if (flag){
-           alert("win");
+          // alert("win");
+          var millis=Date.now()-this.props.startTime;
+         
+         this.setState({startTime: millis/1000, isFinished:true})
+        //  App.setState({isFinished: true})
+          this.state.startTime=millis/1000;
+          this.state.isFinished=true;
+          console.log(this.props.isFinished)
+          // alert(/*Math.floor(millis/1000)*/millis/1000)
         }
       
           
@@ -89,7 +104,7 @@ class PuzzleBord extends Component {
         console.log("pz- box_order="+ box_order)
         console.log("pz- props.boxorder="+ this.props.boxOrder)
         const puzzleBord_style = {
-            width: (435/this.props.gridSize),
+            width: (/*435*/486/this.props.gridSize),
             height: (486/this.props.gridSize),
             "background-color": "rgba(180, 180, 200, 0.3)",
             transpernt: "20%",
@@ -98,12 +113,26 @@ class PuzzleBord extends Component {
             
         };
         return (
+        <div>
+            <div>
+            
+            <Modal isOpen={this.state.isFinished}>
+                          <h3>Well Done!!</h3>
+                          <p>Time: {this.state.startTime}
+                          </p>
+  
+                          <Button onClick={()=>{this.handleNextLevel()}}>Next Level</Button>
+                          <Button onClick={()=>{this.resetGame()}}>Reset</Button>
+                          <Button onClick={()=>{this.handleCloseModal()}}>Close</Button>
+                          </Modal>
+          </div>
+  
       
           <div  id={box_order} onDrop={event=> this.drop(event)} onDragOver={event=> this.allowDrop(event)} style={puzzleBord_style}>
 
             </div>
          
-          
+        </div>   
         );
     }
 }

@@ -10,7 +10,7 @@ class CroppedPhoto extends Component {
        
         const puzzle_style = {
             backgroundImage: "url(" + this.props.img_path + ")",
-            width: (435/this.props.gridSize),
+            width: (486/this.props.gridSize),
             height: (486/this.props.gridSize),
             backgroundPosition: this.props.startpxX + " " + this.props.startpxY,
             backgroundSize: (this.props.gridSize * 100) + "%",
@@ -19,7 +19,7 @@ class CroppedPhoto extends Component {
         const id_num=this.props.idNum
         return (
             
-            <div draggable="true"  onDragStart={event=>this.drag(event,id_num)} id={id_num} style={puzzle_style}>
+            <div draggable="true" onDragStart={event=>this.drag(event,id_num)} id={id_num} style={puzzle_style}>
 
             </div>
            
