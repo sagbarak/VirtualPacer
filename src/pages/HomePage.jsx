@@ -11,7 +11,7 @@ class App extends Component {
           <h2>Virtual Pacer Games</h2>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <ul className="navbar-nav mr-auto">
-            <li><Link to={'/PuzzleGame'} className="nav-link"> PuzzleGame </Link></li>
+            <li><Link to={'/PuzzleGame'} className="nav-link">PuzzleGame</Link></li>
             <li><Link to={'/MemoryGame'} className="nav-link">MemoryGame</Link></li>
           </ul>
           </nav>
