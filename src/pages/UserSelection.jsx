@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import UserItem from '../components/Users/UserItem';
 import CreateUser from '../components/Users/CreateUser';
+import { create } from 'domain';
 
 class UserSelection extends Component {
     state = {
@@ -26,8 +27,9 @@ class UserSelection extends Component {
     }
 
     toggleCreateUsr(){
-        this.setState({createUserScrn:true});
+        this.setState({createUserScrn:!this.state.createUserScrn});
     }
+    
 }
  
 export default UserSelection;

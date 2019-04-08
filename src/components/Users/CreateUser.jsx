@@ -7,9 +7,9 @@ class CreateUser extends Component {
         this.OnChangeId = this.OnChangeId.bind(this);
         this.OnChangeFirstName = this.OnChangeFirstName.bind(this);
         this.OnChangeLastName = this.OnChangeLastName.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
 
-        state = { 
+        this.state = { 
             Id:"",
             firstName: "",
             lastName: ""
@@ -33,7 +33,7 @@ class CreateUser extends Component {
          );
     }
 
-    handleSubmit(event){
+    handleSubmit(e){
         e.preventDefault();
         const obj = {
             Id: this.state.Id,
@@ -49,6 +49,7 @@ class CreateUser extends Component {
             firstName: "",
             lastName: ""
         })
+        
     }
 
     OnChangeId(e){
