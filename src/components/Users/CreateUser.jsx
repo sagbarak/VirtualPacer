@@ -18,7 +18,7 @@ class CreateUser extends Component {
 
     render() { 
         return ( 
-            <div>
+            <div style={{position:"relative", left:"20%",top:"5%"}}>
             <h1>Add New User</h1>
             <form onSubmit={this.handleSubmit}>
                 <label>ID:</label>
@@ -49,7 +49,9 @@ class CreateUser extends Component {
             firstName: "",
             lastName: ""
         })
-        
+        setTimeout(()=>{
+            this.props.history.push('/');
+        },1000);
     }
 
     OnChangeId(e){

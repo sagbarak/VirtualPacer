@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import UserItem from '../components/Users/UserItem';
-import CreateUser from '../components/Users/CreateUser';
-import HomePage from '../pages/HomePage';
 import '../components/background.css';
-import Logo from '../graphics/logo4.png';
-
+import { withRouter } from 'react-router-dom';
 
 const screenStyle={
     position: "absolute",
@@ -14,44 +11,41 @@ const screenStyle={
 }
 
 class UserSelection extends Component {
-    state = {
-        users: [],
-        createUserScrn: false,
-        gameScrn: false,
+    constructor(props){
+        super(props);
+        
+        this.state={
+            users: [],
+            createUserScrn: false,
+            gameScrn: false,
+        }
     }
 
     render() { 
         return (
-            <div className="bgStyle">
-                <img src={Logo} style={{position:"absolute",left:"3%"}}/>
+            <div>
                 <div style={screenStyle}>
-                {this.state.createUserScrn?
-                    <CreateUser />
-                    :
-                    this.state.gameScrn?
-                        <HomePage />
-                        :
+                    <div>
+                        <h1>User List</h1>
+                        <button onClick={()=>{this.handleCreateUsr()}}>Create New User</button>
                         <div>
-                            <h1>User List</h1>
-                            <button onClick={()=>{this.toggleCreateUsr()}}>Create New User</button>
-                            <div>
-                                <UserItem />
-                            </div>
-                            <button onClick={()=>this.toggleGame()}>Go To Game!</button>
+                            <UserItem />
                         </div>
-                }
+                        <button onClick={()=>this.handleStartGame()}>Start Game!</button>
+                    </div>            
                 </div>
             </div>
          );
     }
 
-    toggleCreateUsr(){
-        this.setState({createUserScrn:!this.state.createUserScrn});
+    handleCreateUsr(){
+        console.log(this.props);
+        this.props.history.push('/createusr');
     }
-    toggleGame(){
-        this.setState({gameScrn: true});
+    handleStartGame(){
+        this.props.history.push('/gameselect');
     }
     
 }
  
-export default UserSelection;
+export default withRouter(UserSelection);

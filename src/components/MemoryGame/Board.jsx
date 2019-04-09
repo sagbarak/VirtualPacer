@@ -7,8 +7,8 @@ import { Button } from 'react-bootstrap';
 import Modal from 'react-modal';
 
 const boardStyle = {
-    margin: "auto",
-    width: "100%",
+    marginLeft: "2%",
+    width: "70%",
     height: "100%",
     //backgroundColor: 'rgba(245,232,196,0.6)',
 };
@@ -22,9 +22,10 @@ const titleStyle={
 }
 
 const cardWrapper={
-    margin: "auto",
-    width: "1000px",
-    height: "500px",
+    marginLeft: "15%",
+    position: "relative"
+    //width: "1000px",
+    //height: "500px",
 }
 const btnStyle={
     width: "50px",
