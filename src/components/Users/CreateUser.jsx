@@ -18,7 +18,7 @@ class CreateUser extends Component {
 
     render() { 
         return ( 
-            <div style={{position:"relative", left:"20%",top:"5%"}}>
+            <div style={{position:"relative", marginLeft:"20%",top:"5%"}}>
             <h1>Add New User</h1>
             <form onSubmit={this.handleSubmit}>
                 <label>ID:</label>

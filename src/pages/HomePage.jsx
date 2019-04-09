@@ -26,7 +26,7 @@ class HomePage extends Component {
   render() {
     return (
         <div>
-          <h1 style={{color:"white",position:"relative",left:"50%",marginTop:"3%"}}>Choose a game</h1>
+          <h1 style={{color:"white",position:"relative",marginLeft:"50%",marginTop:"3%"}}>Choose a game</h1>
           <div style={{marginLeft:"37%"}}>
             <img src={PuzzleImg} onClick={this.handlePuzzleGame} style={chooseStyle}/>
             <img src={MemImg} onClick={this.handleMemGame} style={chooseStyle}/>
