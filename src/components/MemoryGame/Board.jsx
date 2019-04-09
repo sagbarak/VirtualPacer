@@ -47,15 +47,17 @@ class Board extends Component {
             numOfOpenCards: 0,
             lastId: "",
             matchCounter:0,
-            clickCount: 0, 
+            clickCount: 0,
             isFinished: false,
             firstClick: false,
             resetRequest: false,
-            time: 0
+            time: 0,
+            seconds: 0
         }
         this.resetGame=this.resetGame.bind(this);
+        this.stopCountingSeconds = this.stopCountingSeconds.bind(this);
+        this.countSeconds = this.countSeconds.bind(this);
     }
-    
 
         renderBoard(){
             return( 
@@ -72,7 +74,7 @@ class Board extends Component {
                     <div>
                         <Modal isOpen={this.state.isFinished}>
                         <h3>Well Done!!</h3>
-                        <p>Time: {this.state.time}
+                        <p>Time: {this.state.seconds}
                         </p>
 
                         <Button onClick={()=>{this.handleNextLevel()}}>Next Level</Button>
@@ -84,7 +86,8 @@ class Board extends Component {
                         <div>
                             <div style={{margin:"auto"}}><h1 style={titleStyle}>Memory Game</h1></div>
                             <Button variant="info" onClick={this.props.openInsturction}>Instruction</Button>
-                            <Timer firstClick={this.state.firstClick} isFinished={this.state.isFinished} onStop={this.setTimeResult} />
+                            {//<Timer firstClick={this.state.firstClick} isFinished={this.state.isFinished} onStop={this.setTimeResult} />
+                            }
                             <div>
                                 <Button variant="info" onClick={()=>this.resetGame()}>Reset</Button>
                             </div>
@@ -121,12 +124,25 @@ class Board extends Component {
         this.setState(newState);
     }
 
+    countSeconds(){
+        setInterval((()=>{
+           this.timer = this.setState({seconds:this.state.seconds+1});
+        }).bind(this),1000);
+        console.log(this.timer);
+    }
+    stopCountingSeconds(){
+        console.log("stoping timer");
+        console.log(this.timer);
+        clearInterval(this.timer);
+    }
+
     flipCard = (id) => {
         let newState = this.state;
         console.log("id " + id);
         console.log("last id " + newState.lastId);
         if(!newState.firstClick){
             newState.firstClick=true;
+            this.countSeconds();
         }
         newState.board.map(card=>{
             if(card.id===id){ //find card by id
@@ -169,6 +185,7 @@ class Board extends Component {
     checkIfGameOver(){
         //if(!this.state.isFinished){
             if(this.state.matchCounter===(this.state.board.length/2)){
+                this.stopCountingSeconds();
                 sleep(200).then(()=>{
                     this.setState({isFinished: true});
                 })
