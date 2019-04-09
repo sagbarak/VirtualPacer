@@ -68,7 +68,7 @@ class MemGame extends Component {
     render() { 
         
         return ( 
-            <div className='bgStyle'>
+            <div>
                 <Modal isOpen={this.state.instruction} style={modalStyle}>
                     <h3>Memory Game</h3>
                     <p>In this game you need to find pair of cards.

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
-import HomePage from './pages/HomePage';
 import UserSelection from './pages/UserSelection';
 
 ReactDOM.render(<UserSelection />, document.getElementById('root'));

@@ -17,7 +17,7 @@ class ChooseLevel extends Component {
     
     render() { 
         return ( 
-            <div className='bgStyle'>
+            <div>
             {this.state.screenMenu ?
             <div>
                 <Button onClick={()=>this.handleLevelClick(1)}>Easy</Button>
