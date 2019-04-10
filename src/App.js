@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, } from 'react-router-dom';
+import UserSelection from './pages/UserSelection';
+import HomePage from './pages/HomePage';
+import MemoryGame from './components/MemoryGame/ChooseLevel';
+import PuzzleGame from './components/PuzzleGame/App';
+import CreateUser from './components/Users/CreateUser';
+import Logo from './graphics/logo4.png';
+import './components/background.css';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <BrowserRouter>
+      <div className="bgStyle">
+        <img src={Logo} style={{position:"absolute",left:"3%"}}/>
+        <Route exact path="/" component={UserSelection} />
+        <Route path="/gameselect" component={HomePage} />
+        <Route path="/memgame" component={MemoryGame} />
+        <Route path="/puzzlegame" component={PuzzleGame} />
+        <Route path="/createusr" component={CreateUser} />
       </div>
+      </BrowserRouter>
     );
   }
 }

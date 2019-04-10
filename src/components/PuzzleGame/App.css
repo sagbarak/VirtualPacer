@@ -1,20 +1,16 @@
-body, html{
+/*body, html{
   background-image: url(../../graphics/back3.jpg);
   background-size: cover ;
   background-position: center;
-  background-repeat: repeat;
-  /*background-repeat: repeat; */
   height: 100%;
-}
+}*/
 .App {
   text-align: center;
   height: 100%;
 /*  background-image: url(./background.jpg);
   background-size: cover ;
   background-position: center;
-  background-repeat: no-repeat;
 
-  /*background-repeat: repeat; */
   /*height: 100%;
   */
 } 

@@ -17,17 +17,17 @@ class ChooseLevel extends Component {
     
     render() { 
         return ( 
-            <div className='bgStyle'>
-            {this.state.screenMenu ?
-            <div>
-                <Button onClick={()=>this.handleLevelClick(1)}>Easy</Button>
-                <Button onClick={()=>this.handleLevelClick(2)}>Medium</Button>
-                <Button onClick={()=>this.handleLevelClick(3)}>Hard</Button>
-                <Button onClick={()=>this.handleLevelClick(4)}>Crazy</Button>
-            </div>
-            :
-            <MemGame rows={this.state.rows} columns={this.state.columns} nextLevel={()=>{this.increaseLevel()}} />
-            }
+            <div style={{marginLeft:"15%",marginTop:"1%"}}>
+                {this.state.screenMenu ?
+                <div style={{marginLeft:"40%",marginTop:"20%"}}>
+                    <Button onClick={()=>this.handleLevelClick(1)}>Easy</Button>
+                    <Button onClick={()=>this.handleLevelClick(2)}>Medium</Button>
+                    <Button onClick={()=>this.handleLevelClick(3)}>Hard</Button>
+                    <Button onClick={()=>this.handleLevelClick(4)}>Crazy</Button>
+                </div>
+                :
+                <MemGame rows={this.state.rows} columns={this.state.columns} nextLevel={()=>{this.increaseLevel()}} />
+                }
             </div>
          );
     }
