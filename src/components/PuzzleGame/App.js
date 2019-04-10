@@ -93,7 +93,7 @@ class App extends Component {
           <Button variant="success" size='lg' onClick={e => this.handleInputChange(e=6)}>Professional</Button>
          </div>
      
-        <img src={image} className="im" id="500" width="250" height="320"   /*draggable = "true"*/ />   
+        <img src={image} className="im" id="500" width="250" height="320"   draggable = "false" />   
           { /*boxMap.map(bo =>   */<Bord gridSize={gridSize} startTime={startTime} isFinished={isFinished}/*boxMap={boxMap} boxOrder={bo.BOrder} />)}*//>}
           
            {/*  <div className="gamePieces" >
@@ -101,8 +101,8 @@ class App extends Component {
     </div>*/}  
      
        
-          <div className= "pieces" style= {{paddingLeft: '0px', display : 'grid', 'grid-template-columns': 'repeat('+(gridSize*3)+',auto', width : '0px'}}>
-         {arr.map(tile => <CroppedPhoto img_path={image} startpxX={tile.xpos} startpxY={tile.ypos} gridSize={gridSize} idNum={tile.numName}/>)}
+          <div className= "pieces" id= "300" style= {{paddingLeft: '0px', display : 'grid', 'grid-template-columns': 'repeat('+(gridSize*3)+',auto', width : '0px'}}>
+         {arr.map(tile => <CroppedPhoto img_path={image} startpxX={tile.xpos} startpxY={tile.ypos} startTime={startTime} isFinished={isFinished} gridSize={gridSize} idNum={tile.numName}/>)}
           </div>
         
       </div>
