@@ -4,8 +4,11 @@ import PuzzleImg from '../graphics/puzzle-game.png';
 import MemImg from '../graphics/memory-games.png';
 
 const chooseStyle={
+
   cursor: "pointer",
-  padding: "5px"
+  padding: "1%",
+  width: "30%",
+  height: "50%"
 }
 
 
@@ -26,13 +29,15 @@ class HomePage extends Component {
   render() {
     return (
         <div>
-          <h1 style={{color:"white",position:"relative",marginLeft:"50%",marginTop:"3%"}}>Choose a game</h1>
-          <div style={{marginLeft:"37%"}}>
+          <div style={{position:"static",marginLeft:"45%",marginRight:"35%",marginTop:"3%"}}>
+            <h1 style={{color:"white"}}>Choose a game</h1>
+          </div>
+          <div style={{marginLeft:"37%",marginTop:"5%"}}>
             <img src={PuzzleImg} onClick={this.handlePuzzleGame} style={chooseStyle}/>
             <img src={MemImg} onClick={this.handleMemGame} style={chooseStyle}/>
           </div>
           <div style={{clear:"both"}}>
-            <h2 style={{float:"left",marginLeft:"42%"}}>Puzzle Game</h2>
+            <h2 style={{float:"left",marginLeft:"41%"}}>Puzzle Game</h2>
             <h2 style={{float:"right",marginRight:"27%"}}>Memory Game</h2>
           </div>
         </div>

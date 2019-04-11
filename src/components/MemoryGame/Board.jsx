@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Card from './card';
 import uuid from 'uuid';
-import Timer from './timer';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'react-bootstrap';
 import Modal from 'react-modal';
@@ -23,9 +22,9 @@ const titleStyle={
 
 const cardWrapper={
     marginLeft: "15%",
-    position: "relative"
-    //width: "1000px",
-    //height: "500px",
+    position: "relative",
+    width: "80%",
+    height: "35%",
 }
 const btnStyle={
     width: "50px",
@@ -86,8 +85,6 @@ class Board extends Component {
                         <div>
                             <div style={{margin:"auto"}}><h1 style={titleStyle}>Memory Game</h1></div>
                             <Button variant="info" onClick={this.props.openInsturction}>Instruction</Button>
-                            {//<Timer firstClick={this.state.firstClick} isFinished={this.state.isFinished} onStop={this.setTimeResult} />
-                            }
                             <div>
                                 <Button variant="info" onClick={()=>this.resetGame()}>Reset</Button>
                             </div>
@@ -121,18 +118,20 @@ class Board extends Component {
         newState.clickCount=0;
         newState.matchCounter=0;
         newState.firstClick=false;
+        newState.seconds=0;
         this.setState(newState);
     }
 
     countSeconds(){
-        setInterval((()=>{
-           this.timer = this.setState({seconds:this.state.seconds+1});
+        this.timer = setInterval((()=>{
+           this.setState({seconds:this.state.seconds+1});
         }).bind(this),1000);
-        console.log(this.timer);
+        console.log(this);
     }
+
     stopCountingSeconds(){
         console.log("stoping timer");
-        console.log(this.timer);
+        console.log(this);
         clearInterval(this.timer);
     }
 
