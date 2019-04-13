@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import PuzzleImg from '../graphics/puzzle-game.png';
 import MemImg from '../graphics/memory-games.png';
 
@@ -17,6 +16,7 @@ class HomePage extends Component {
     super(props);
 
     this.state = {
+      UserId: this.props.location.state.userId,
       homeScrn: true,
       puzzleScrn: false,
       memScrn: false,
@@ -27,6 +27,7 @@ class HomePage extends Component {
   }
 
   render() {
+    console.log(this.props.location.state.userId);
     return (
         <div>
           <div style={{position:"static",marginLeft:"45%",marginRight:"35%",marginTop:"3%"}}>
@@ -45,11 +46,17 @@ class HomePage extends Component {
   }
 
   handleMemGame(){
-    this.props.history.push('/memgame');
+    this.props.history.push({
+      pathname:'/memgame',
+      state:{userId: this.state.UserId }
+    });
   }
 
   handlePuzzleGame(){
-    this.props.history.push('/puzzlegame');
+    this.props.history.push({
+      pathname:'/puzzlegame',
+      state:{userId: this.state.UserId }
+    });
   }
 
 }

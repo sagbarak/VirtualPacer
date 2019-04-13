@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, } from 'react-router-dom';
-import UserSelection from './pages/UserSelection';
 import HomePage from './pages/HomePage';
 import MemoryGame from './components/MemoryGame/ChooseLevel';
 import PuzzleGame from './components/PuzzleGame/App';
@@ -14,11 +13,10 @@ class App extends Component {
       <BrowserRouter>
       <div className="bgStyle">
         <img src={Logo} style={{position:"absolute",left:"3%"}}/>
-        <Route exact path="/" component={UserSelection} />
+        <Route exact path="/" component={CreateUser} />
         <Route path="/gameselect" component={HomePage} />
         <Route path="/memgame" component={MemoryGame} />
         <Route path="/puzzlegame" component={PuzzleGame} />
-        <Route path="/createusr" component={CreateUser} />
       </div>
       </BrowserRouter>
     );

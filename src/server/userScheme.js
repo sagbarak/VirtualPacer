@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 let userScheme = new Schema ({
     firstname: {type: String}, 
     lastname: {type: String},
-    result: [{ time: Number, level: Number }]
+    age: {type: Number },
+    result: [{ game: String,time: Number, level: Number, mistakes: Number,moves: Number,quality:Number }]
   });
 module.exports = mongoose.model('userScheme',userScheme);

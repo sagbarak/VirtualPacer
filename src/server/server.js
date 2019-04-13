@@ -39,7 +39,7 @@ userRoutes.route('/add').post(function(req, res) {
     let user = new userScheme(req.body);
     user.save()
         .then(user => {
-            res.status(200).json({'user': 'user added successfully'});
+            res.status(200).json({'user': 'user added successfully','userId':user._id});
         })
         .catch(err => {
             res.status(400).send('adding new user failed');

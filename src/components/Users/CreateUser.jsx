@@ -4,58 +4,67 @@ import axios from 'axios';
 class CreateUser extends Component {
     constructor(props){
         super(props);
-        this.OnChangeId = this.OnChangeId.bind(this);
+        this.OnChangeAge = this.OnChangeAge.bind(this);
         this.OnChangeFirstName = this.OnChangeFirstName.bind(this);
         this.OnChangeLastName = this.OnChangeLastName.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.state = { 
-            Id:"",
+            ObjectId: "",
             firstName: "",
-            lastName: ""
+            lastName: "",
+            age:0
         }
     }
 
     render() { 
         return ( 
             <div style={{position:"relative", marginLeft:"20%",top:"5%"}}>
-            <h1>Add New User</h1>
+            <h1>Register</h1>
             <form onSubmit={this.handleSubmit}>
-                <label>ID:</label>
-                    <input type="number" name="ID" onChange={this.OnChangeId} value={this.state.Id}/>
-                <label>First Name:</label>
+                <div>
+                <label>First Name:</label>   
                     <input type="text" name="First Name"  onChange={this.OnChangeFirstName} value={this.state.firstName}/>
+                </div>
+                <div>
                 <label>Last Name:</label>
                     <input type="text" name="Last Name"  onChange={this.OnChangeLastName} value={this.state.lastName}/>
+                </div>
+                <div>
+                <label>Age:</label>
+                <input type="number" name="Age" onChange={this.OnChangeAge} value={this.state.age}/>
+                </div>
                 <input type="submit" value="Submit" />
             </form>
             </div>
          );
     }
+ 
 
     handleSubmit(e){
         e.preventDefault();
         const obj = {
-            Id: this.state.Id,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName
+            "firstname": this.state.firstName,
+            "lastname": this.state.lastName,
+            "age": this.state.age
         };
-        console.log(obj);
-        axios.post('http://localhost:4000/vpData/add',obj)
-            .then(res=> console.log(res.data));
 
-        this.setState({
-            Id: "",
-            firstName: "",
-            lastName: ""
-        })
-        setTimeout(()=>{
-            this.props.history.push('/');
-        },1000);
+        axios.post('http://localhost:3000/vpdata/add',obj)
+            .then(res=> {
+                console.log(res.data.userId); 
+                this.setState({ObjectId:res.data.userId});
+                console.log(this.state);
+                setTimeout(()=>{
+                    this.props.history.push({
+                        pathname: '/gameselect',
+                        state: { userId: res.data.userId }
+                    });
+                },1000);
+            });     
     }
 
-    OnChangeId(e){
-        this.setState({Id: e.target.value});
+    OnChangeAge(e){
+        this.setState({age: e.target.value});
     }
 
     OnChangeFirstName(e){

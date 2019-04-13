@@ -15,7 +15,7 @@ class UserSelection extends Component {
         super(props);
         
         this.state={
-            users: [],
+            userId:"sagi",
             createUserScrn: false,
             gameScrn: false,
         }
@@ -39,7 +39,6 @@ class UserSelection extends Component {
     }
 
     handleCreateUsr(){
-        console.log(this.props);
         this.props.history.push('/createusr');
     }
     handleStartGame(){

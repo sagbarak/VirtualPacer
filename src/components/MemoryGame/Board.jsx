@@ -4,12 +4,12 @@ import uuid from 'uuid';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'react-bootstrap';
 import Modal from 'react-modal';
+import axios from 'axios';
 
 const boardStyle = {
     marginLeft: "2%",
     width: "70%",
     height: "100%",
-    //backgroundColor: 'rgba(245,232,196,0.6)',
 };
 
 const titleStyle={
@@ -46,12 +46,12 @@ class Board extends Component {
             numOfOpenCards: 0,
             lastId: "",
             matchCounter:0,
-            clickCount: 0,
+            moves: 0,
             isFinished: false,
             firstClick: false,
             resetRequest: false,
-            time: 0,
-            seconds: 0
+            seconds: 0,
+            mistakes: 0
         }
         this.resetGame=this.resetGame.bind(this);
         this.stopCountingSeconds = this.stopCountingSeconds.bind(this);
@@ -84,9 +84,9 @@ class Board extends Component {
                     <div style={boardStyle}>
                         <div>
                             <div style={{margin:"auto"}}><h1 style={titleStyle}>Memory Game</h1></div>
-                            <Button variant="info" onClick={this.props.openInsturction}>Instruction</Button>
+                                <div style={{padding:"0.5%"}}><Button bsStyle="light" onClick={this.props.openInsturction}>Instruction</Button></div>
                             <div>
-                                <Button variant="info" onClick={()=>this.resetGame()}>Reset</Button>
+                                <div style={{padding:"0.5%"}}><Button bsStyle="light" onClick={()=>this.resetGame()}>Reset</Button></div>
                             </div>
                             <div style={cardWrapper}>
                                 {this.renderBoard()}
@@ -115,10 +115,11 @@ class Board extends Component {
         newState.numOfOpenCars = 0;
         newState.lastId="";
         newState.isFinished=false;
-        newState.clickCount=0;
+        newState.moves=0;
         newState.matchCounter=0;
         newState.firstClick=false;
         newState.seconds=0;
+        newState.mistakes=0;
         this.setState(newState);
     }
 
@@ -146,7 +147,7 @@ class Board extends Component {
         newState.board.map(card=>{
             if(card.id===id){ //find card by id
                 if(!card.faceUp){ //if card is face down, you can flip it
-                    newState.clickCount++;
+                    newState.moves++;
                     if(newState.numOfOpenCards<2){ // if less then 2 cards are open you can flip with no check
                         card.faceUp=true;
                         newState.numOfOpenCards+=1;
@@ -163,9 +164,10 @@ class Board extends Component {
                                     newState.matchCounter++;
                                 }
                                 else if(card2.imgUrl!==card.imgUrl){
-                                    sleep(200).then(()=>{
+                                    sleep(500).then(()=>{
                                         card.faceUp=false;
                                         card2.faceUp=false;
+                                        this.setState({mistakes:this.state.mistakes+1});
                                     })
                                 }
                             }
@@ -182,17 +184,34 @@ class Board extends Component {
 
 
     checkIfGameOver(){
-        //if(!this.state.isFinished){
             if(this.state.matchCounter===(this.state.board.length/2)){
                 this.stopCountingSeconds();
                 sleep(200).then(()=>{
                     this.setState({isFinished: true});
                 })
-                
+                this.sendResultsToDB();
             }
-        //}
     }
 
+    sendResultsToDB(){
+        axios.get('http://localhost:3000/vpdata/'+this.props.userId).then(
+            res=>{
+               let resultArr = res.data.result;
+               resultArr.push({
+                   game: "memory",
+                   time:this.state.seconds, 
+                   level:this.props.level, 
+                   mistakes: this.state.mistakes,
+                   moves: this.state.moves,
+                   quality: (1-(this.state.mistakes/this.state.moves))
+                });
+               
+               axios.post('http://localhost:3000/vpdata/update/'+this.props.userId,{result: resultArr})
+               .then(res=>{console.log(res);});  
+            }
+        )
+        
+    }
     shuffleImageList(imageList) {
         for (let i = imageList.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));

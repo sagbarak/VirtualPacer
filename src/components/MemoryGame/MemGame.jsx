@@ -26,11 +26,11 @@ Modal.setAppElement(document.getElementById('root'))
 const modalStyle ={
         overlay: {
           position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(255, 255, 255, 0.50)'
+          top: 30,
+          left: 70,
+          right: 70,
+          bottom: 30,
+          backgroundColor: 'rgba(255, 255, 255, 0.0)'
         },
         content: {
           position: 'absolute',
@@ -55,6 +55,7 @@ class MemGame extends Component {
         rows: this.props.rows,
         columns: this.props.columns,
         instruction: true,
+        userId: this.props.userId
      }
     
    
@@ -71,13 +72,16 @@ class MemGame extends Component {
             <div>
                 <Modal isOpen={this.state.instruction} style={modalStyle}>
                     <h3>Memory Game</h3>
-                    <p>In this game you need to find pair of cards.
-                        Find pairs as fast as you can.
-                    </p>
+                    <p>In this game, there's an even number of cards.</p>
+                    <p>Your goal is to find all pairs of cards.</p>
+                    <p>At the end of the level your results will be shown to you</p>
+
+                    <h5>Good Luck!</h5>
                     <Button className="btn btn-success" onClick={this.handleCloseModal.bind(this)}>OK</Button>
                 </Modal>
                     <Board rows={this.props.rows} columns={this.props.columns} imageList={this.state.imageList} 
-                        openInsturction={this.handleOpenModal.bind(this)} nextLevel={this.props.nextLevel} />
+                        openInsturction={this.handleOpenModal.bind(this)} nextLevel={this.props.nextLevel} 
+                        userId={this.state.userId} level={this.props.level} />
             </div>
          );
     }
