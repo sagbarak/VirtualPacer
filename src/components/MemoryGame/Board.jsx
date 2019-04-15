@@ -21,10 +21,8 @@ const titleStyle={
 }
 
 const cardWrapper={
-    marginLeft: "15%",
-    position: "relative",
-    width: "80%",
-    height: "35%",
+    marginTop: "5%",
+    marginLeft: "20%",
 }
 const btnStyle={
     width: "50px",
@@ -81,17 +79,14 @@ class Board extends Component {
                         <Button onClick={()=>{this.handleCloseModal()}}>Close</Button>
                         </Modal>
                     </div>
-                    <div style={boardStyle}>
-                        <div>
-                            <div style={{margin:"auto"}}><h1 style={titleStyle}>Memory Game</h1></div>
-                                <div style={{padding:"0.5%"}}><Button bsStyle="light" onClick={this.props.openInsturction}>Instruction</Button></div>
-                            <div>
-                                <div style={{padding:"0.5%"}}><Button bsStyle="light" onClick={()=>this.resetGame()}>Reset</Button></div>
-                            </div>
-                            <div style={cardWrapper}>
-                                {this.renderBoard()}
-                            </div>
-                        </div>
+
+                    <div style={cardWrapper}>
+                        {this.renderBoard()}
+                    </div>
+
+                    <div>
+                        <div style={{padding:"0.5%"}}><Button bsStyle="light" onClick={this.props.openInsturction}>Instruction</Button></div>
+                        <div style={{padding:"0.5%"}}><Button bsStyle="light" onClick={()=>this.resetGame()}>Reset</Button></div>
                     </div>
                 </div>
             );
@@ -107,8 +102,9 @@ class Board extends Component {
     handleNextLevel(){
         this.handleCloseModal();
         this.props.nextLevel();
-        this.resetGame();
+        setTimeout(()=>{this.resetGame()},300);
     }
+
     resetGame=()=>{
         let newState = Object.assign({},this.state);
         newState.board = this.initialBoard(this.props.rows,this.props.columns);

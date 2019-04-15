@@ -48,16 +48,23 @@ const modalStyle ={
         }
 }
 class MemGame extends Component {
-   state={
-        imageList: [
-            card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12,card13,card14,card15,card16,card17
-        ],
-        rows: this.props.rows,
-        columns: this.props.columns,
-        instruction: true,
-        userId: this.props.userId
-     }
-    
+    constructor(props){
+        super(props);
+
+        this.state={
+            imageList: [
+                card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12,card13,card14,card15,card16,card17
+            ],
+            rows: 2,
+            columns: 5,
+            instruction: true,
+            userId: this.props.location.state.userId,
+            level: 1
+        }
+
+        console.log(this.props);
+        this.handleLevelClick=this.handleLevelClick.bind(this);
+    }
    
     handleCloseModal(){
         this.setState({instruction:false});
@@ -79,11 +86,26 @@ class MemGame extends Component {
                     <h5>Good Luck!</h5>
                     <Button className="btn btn-success" onClick={this.handleCloseModal.bind(this)}>OK</Button>
                 </Modal>
-                    <Board rows={this.props.rows} columns={this.props.columns} imageList={this.state.imageList} 
-                        openInsturction={this.handleOpenModal.bind(this)} nextLevel={this.props.nextLevel} 
-                        userId={this.state.userId} level={this.props.level} />
+                    <Board rows={this.state.rows} columns={this.state.columns} imageList={this.state.imageList} 
+                        openInsturction={this.handleOpenModal.bind(this)} nextLevel={()=>this.handleLevelClick()} 
+                        userId={this.state.userId} level={this.state.level} />
             </div>
          );
+    }
+
+    handleLevelClick(){
+        let nextlevel=this.state.level+1;
+        console.log("entry level"+nextlevel);
+        if(nextlevel===2){
+            this.setState({rows:3,columns:4,level: nextlevel});
+        }
+        if(nextlevel===3){
+            this.setState({rows:4,columns:4,level: nextlevel});
+        }
+        if(nextlevel===4){
+            this.setState({rows:4,columns:4,level: nextlevel});
+        }
+        console.log("level:" + nextlevel);
     }
     
         

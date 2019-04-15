@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import MemoryGame from './components/MemoryGame/ChooseLevel';
+import MemoryGame from './components/MemoryGame/MemGame';
 import PuzzleGame from './components/PuzzleGame/App';
 import CreateUser from './components/Users/CreateUser';
 import Logo from './graphics/logo4.png';
