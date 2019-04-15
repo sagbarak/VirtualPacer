@@ -23,13 +23,8 @@ const titleStyle={
 const cardWrapper={
     marginTop: "5%",
     marginLeft: "20%",
-}
-const btnStyle={
-    width: "50px",
-    height: "25px",
-    margin: "auto",
-    textAlign: "center",
-    fontSize: "13px"
+    width: "80%",
+    height: "60%"
 }
 
 const sleep = (milliseconds) => {
@@ -56,10 +51,11 @@ class Board extends Component {
         this.countSeconds = this.countSeconds.bind(this);
     }
 
+
         renderBoard(){
             return( 
-                this.state.board.map((card)=>{
-                       return (<Card key={card.id} card={card} flipCard={this.flipCard} />)
+                this.state.board.map((card,index)=>{
+                    return (<div><Card key={card.id} card={card} flipCard={this.flipCard} /></div>)
                 })
             )
         }
@@ -79,14 +75,17 @@ class Board extends Component {
                         <Button onClick={()=>{this.handleCloseModal()}}>Close</Button>
                         </Modal>
                     </div>
-
-                    <div style={cardWrapper}>
-                        {this.renderBoard()}
+                    <div>
+                    <div>
+                        <div style={cardWrapper}>
+                            {this.renderBoard()}
+                        </div>
                     </div>
 
-                    <div>
+                    <div style={{marginTop:"20%"}}>
                         <div style={{padding:"0.5%"}}><Button bsStyle="light" onClick={this.props.openInsturction}>Instruction</Button></div>
                         <div style={{padding:"0.5%"}}><Button bsStyle="light" onClick={()=>this.resetGame()}>Reset</Button></div>
+                    </div>
                     </div>
                 </div>
             );

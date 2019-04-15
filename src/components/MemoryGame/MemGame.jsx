@@ -73,8 +73,7 @@ class MemGame extends Component {
     handleOpenModal(){
         this.setState({instruction:true});
     }
-    render() { 
-        
+    render(){  
         return ( 
             <div>
                 <Modal isOpen={this.state.instruction} style={modalStyle}>
@@ -103,7 +102,11 @@ class MemGame extends Component {
             this.setState({rows:4,columns:4,level: nextlevel});
         }
         if(nextlevel===4){
-            this.setState({rows:4,columns:4,level: nextlevel});
+            console.log("next level")
+            this.props.history.push({
+                pathname:'/puzzlegame',
+                state:{ userId: this.state.userId }
+            })    
         }
         console.log("level:" + nextlevel);
     }
