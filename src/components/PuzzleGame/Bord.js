@@ -3,8 +3,14 @@ import './App.css'
 import PuzzleBord from './PuzzleBord';
 class Bord extends Component {
   
+    checkWin()
+    {
+        //alert("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$2")
+        this.props.checkWin()
+    }
     render() {
         let gridSize = this.props.gridSize;
+        //checkWin =  this.props.checkWin();
         let bMap= [];
         let startTimer=this.props.startTime;
         let isFinished= this.props.isFinished;
@@ -19,7 +25,7 @@ class Bord extends Component {
        // let bMap= this.props.boxMap;
         //console.log("bmap = = = = " +bMap)
         let str="repeat("+this.props.gridSize+", auto)" ;
-        let bordMap = bMap.map(bm => <PuzzleBord gridSize={this.props.gridSize} startTime={this.props.startTime} isFinished={this.props.isFinished} boxOrder= {bm.BOrder} />);
+        let bordMap = bMap.map(bm => <PuzzleBord gridSize={this.props.gridSize} checkWin ={()=>this.checkWin()} startTime={this.props.startTime} isFinished={this.props.isFinished} boxOrder= {bm.BOrder} />);
           
         const bord_style = {
             
