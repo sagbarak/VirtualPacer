@@ -5,8 +5,15 @@ class Bord extends Component {
   
     checkWin()
     {
-        //alert("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$2")
-        this.props.checkWin()
+        this.props.checkWin();
+    }
+
+    moves(){
+        this.props.moves();
+    }
+
+    mistakes(){
+        this.props.mistakes();
     }
     render() {
         let gridSize = this.props.gridSize;
@@ -25,7 +32,7 @@ class Bord extends Component {
        // let bMap= this.props.boxMap;
         //console.log("bmap = = = = " +bMap)
         let str="repeat("+this.props.gridSize+", auto)" ;
-        let bordMap = bMap.map(bm => <PuzzleBord gridSize={this.props.gridSize} checkWin ={()=>this.checkWin()} startTime={this.props.startTime} isFinished={this.props.isFinished} boxOrder= {bm.BOrder} />);
+        let bordMap = bMap.map(bm => <PuzzleBord gridSize={this.props.gridSize} checkWin ={()=>this.checkWin()} mistakes={()=>this.mistakes()} moves={()=>this.moves()}startTime={this.props.startTime} isFinished={this.props.isFinished} boxOrder= {bm.BOrder} />);
           
         const bord_style = {
             

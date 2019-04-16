@@ -17,18 +17,33 @@ class CroppedPhoto extends Component {
       {
         this.props.checkWin();
         }
+    mistakes(){
+        this.props.mistakes();
+    }
+    moves(){
+        this.props.moves();
+    }
     allowDrop(ev){
         ev.preventDefault();
     }
     drop(ev){
+        this.moves();
         ev.preventDefault();
-        var data = ev.dataTransfer.getData("id");
-        var src = document.getElementById (data);
-        var srcRepalce = src.parentNode;
-        var srcParent = ev.target.parentNode;
+        let data = ev.dataTransfer.getData("id");
+        let src = document.getElementById (data);
+        let srcRepalce = src.parentNode;
+        let srcParent = ev.target.parentNode;
         srcParent.appendChild(document.getElementById(data));
         srcRepalce.appendChild(document.getElementById(ev.target.id));
-        this.checkWin();
+        let data2 = parseInt(data)+100;
+        //let data3 = parseInt(ev.target.id)+100;
+        if(data2==srcParent.id /*&& data3== srcRepalce.id*/){
+         this.checkWin();
+        }
+        else
+        {
+            this.mistakes();
+        }
     }
     handleCloseModal(){
         this.setState({isFinished: false});

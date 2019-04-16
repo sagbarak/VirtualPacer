@@ -22,6 +22,7 @@ class PuzzleBord extends Component {
               
       
       drop(ev) {
+        this.props.moves();
         ev.preventDefault();
         var data = ev.dataTransfer.getData("id");
         ev.target.appendChild(document.getElementById(data));
@@ -29,6 +30,10 @@ class PuzzleBord extends Component {
         if(data2==ev.target.id){
          this.checkWin();
         }
+
+        else(
+          this.props.mistakes() 
+        )
         
       }
   
