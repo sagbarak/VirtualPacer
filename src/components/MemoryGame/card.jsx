@@ -4,8 +4,8 @@ import blankCard from '../../graphics/blank.png';
 
 
 const cardStyle={
-    width:"10%",
-    height:"20%",
+    width:"20%",
+    height:"40%",
     padding: 10,
     borderRadius: 80,
     border: "black",

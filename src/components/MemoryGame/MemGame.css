@@ -1,0 +1,7 @@
+.instruction{
+    width: 200px;
+    height:100px;
+    margin-top:15%;
+    position:"relative";
+    float:left;
+}

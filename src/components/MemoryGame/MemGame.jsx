@@ -19,7 +19,7 @@ import card14 from '../../graphics/card14.png';
 import card15 from '../../graphics/card15.jpg';
 import card16 from '../../graphics/card16.png';
 import card17 from '../../graphics/card17.jpg';
-
+import './MemGame.css';
 
 Modal.setAppElement(document.getElementById('root'))
 
@@ -85,9 +85,14 @@ class MemGame extends Component {
                     <h5>Good Luck!</h5>
                     <Button className="btn btn-success" onClick={this.handleCloseModal.bind(this)}>OK</Button>
                 </Modal>
-                    <Board rows={this.state.rows} columns={this.state.columns} imageList={this.state.imageList} 
+                
+                
+                <div style={{position:"relative"}}>
+                <Board rows={this.state.rows} columns={this.state.columns} imageList={this.state.imageList} 
                         openInsturction={this.handleOpenModal.bind(this)} nextLevel={()=>this.handleLevelClick()} 
                         userId={this.state.userId} level={this.state.level} />
+                </div>
+                
             </div>
          );
     }
