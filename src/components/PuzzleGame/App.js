@@ -18,6 +18,28 @@ import Modal from 'react-modal';
 import axios from 'axios';
 import ModalIstruction from './ModalInstruction'
 
+
+const modalStyle ={
+  overlay: {
+    position: 'fixed',
+    marginTop: "10%",
+    marginLeft: "20%",
+    marginRight: "20%",
+    marginBottom: "10%",
+    backgroundColor: 'rgba(255, 255, 255, 0.0)'
+},
+content: {
+    position: 'absolute',
+    marginLeft: "5%",
+    border: '1px solid #ccc',
+    background: '#fff',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    borderRadius: '8px',
+    outline: 'none',
+    padding: '20px'
+  }
+}
 class App extends Component {
     constructor(props) {
         super(props);
@@ -135,7 +157,7 @@ class App extends Component {
       this.handleInputChange(this.state.input_num+1)
           }
       else{
-        alert("finished the game!!!")
+        this.props.history.push('/endgame');
       }
 }
 
@@ -204,40 +226,36 @@ class App extends Component {
     return (
       <div className="App">
          
-         <h1> Puzzle Game </h1>
           {/*<input type="text" name="fname" onChange={e => this.handleInputChange(e)}/>*/}
    
-         <div className="buttons" id= "400">
+        <div className="buttons" id= "400">
           <Button variant="success" size='lg' onClick={e => this.handleInputChange(e=3)} >START</Button>
-        {/*  <Button variant= "success" size='lg' onClick={e => this.handleInputChange(e=4)}>Medium</Button>
-          <Button variant="success" size='lg' onClick={e => this.handleInputChange(e=5)}>Hard</Button>
-          <Button variant="success" size='lg' onClick={e => this.handleInputChange(e=6)}>Professional</Button>
-        */}</div>
+        </div>
      
         <ModalIstruction/>
+        <div style={{position:"relative",left:"20%",marginTop:"5%"}}>
         <img src={image} className="im" id="500" width="250" height="320"   draggable = "false" />   
           { /*boxMap.map(bo =>   */<Bord gridSize={gridSize} mistakes={()=>this.mistakes()} moves={()=>this.moves()} checkWin={()=>this.checkWin()} /*startTime={startTime} isFinished={isFinished}boxMap={boxMap} boxOrder={bo.BOrder} />)}*//>}
           
            { /*  <div className="gamePieces" >
                {boxMap.map(bo =>   <PuzzleBord gridSize={gridSize}  boxOrder={bo.BOrder} newRow={bo.newRow} />)}
     </div>*/}  
+        </div>
      
     <div>
             
-            <Modal isOpen={this.state.isFinished }>
+            <Modal isOpen={this.state.isFinished } style={modalStyle}>
                           <h3>Well Done!!</h3>
                           <p>Time: {this.state.startTimer}</p>
                           <p> Mistakes: {this.state.totalMistakes}</p>
                           <p> Moves: {this.state.totalMoves}
                           </p>
   
-                          <Button onClick={()=>this.handleNextLevel()}>Next Level</Button>
-                          <Button onClick={()=>this.resetGame()}>Reset</Button>
-                          <Button onClick={()=>this.handleCloseModal()}>Close</Button>
+                          <Button bsStyle="success" onClick={()=>this.handleNextLevel()}>Next Level</Button>
                           </Modal>
           </div>
   
-          <div className= "pieces" id= "300" style= {{paddingLeft: '0px', display : 'grid', 'grid-template-columns': 'repeat('+(gridSize*3)+',auto', width : '0px'}}>
+          <div id= "300" style= {{position:"relative", left:"18%" ,paddingLeft: '0px', display : 'grid', 'grid-template-columns': 'repeat('+(gridSize*3)+',auto', width : '0px'}}>
          {arr.map(tile => <CroppedPhoto img_path={image} startpxX={tile.xpos} mistakes={()=>this.mistakes()} moves={()=>this.moves()} checkWin={()=>this.checkWin()} startpxY={tile.ypos}/* startTime={startTime} isFinished={isFinished}*/ gridSize={gridSize} idNum={tile.numName}/>)}
           </div>
         

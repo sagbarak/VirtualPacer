@@ -37,32 +37,30 @@ class ModalIstruction extends Component {
 
     render(){
         const modalStyle ={
-            overlay: {
-              position: 'fixed',
-              top: 30,
-              left: 70,
-              right: 70,
-              bottom: 30,
-              backgroundColor: 'rgba(255, 255, 255, 0.0)'
-            },
-            content: {
-              position: 'absolute',
-              top: '150px',
-              left: '200px',
-              right: '200px',
-              bottom: '150px',
-              border: '1px solid #ccc',
-              background: '#fff',
-              overflow: 'auto',
-              WebkitOverflowScrolling: 'touch',
-              borderRadius: '8px',
-              outline: 'none',
-              padding: '20px'
-            }
+          overlay: {
+            position: 'fixed',
+            marginTop: "10%",
+            marginLeft: "20%",
+            marginRight: "20%",
+            marginBottom: "10%",
+            backgroundColor: 'rgba(255, 255, 255, 0.0)'
+        },
+        content: {
+            position: 'absolute',
+            marginLeft: "5%",
+            border: '1px solid #ccc',
+            background: '#fff',
+            overflow: 'auto',
+            WebkitOverflowScrolling: 'touch',
+            borderRadius: '8px',
+            outline: 'none',
+            padding: '20px'
+          }
         }
+        
         return(
         <div id = "Modal">
-         <Modal isOpen={this.state.instruction} style={this.modalStyle}>
+         <Modal isOpen={this.state.instruction} style={modalStyle}>
                     <h3>Puzzle Game</h3>
                     <p>In this game, there are puzzle pieces that in the right combination will create a fixed image.</p>
                     <p>Your goal is to find this combination and to restore the picture. You have the whole image on the left to help you.</p>
@@ -73,7 +71,7 @@ class ModalIstruction extends Component {
                     <Button className="btn btn-success" onClick={this.handleCloseModal.bind(this)}>OK</Button>
                 </Modal>  
                
-                <div style={{padding:"0.5%"}}><Button bsStyle="light" onClick={this.handleOpenModal.bind(this)}>Instruction</Button></div>
+                <div style={{position:"fixed",top:"35%",left:"2.5%", padding:"0.5%"}}><Button bsStyle="light" onClick={this.handleOpenModal.bind(this)}>Instruction</Button></div>
          </div>
    
 

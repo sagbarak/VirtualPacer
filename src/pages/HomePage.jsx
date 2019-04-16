@@ -1,18 +1,40 @@
 import React, { Component } from 'react';
-import PuzzleImg from '../graphics/puzzle-game.png';
-import MemImg from '../graphics/memory-games.png';
+import Modal from 'react-modal';
+import { Button } from 'react-bootstrap';
 
-const chooseStyle={
+Modal.setAppElement(document.getElementById('root'))
+
+const chooseStyle = {
 
   cursor: "pointer",
   padding: "1%",
   width: "30%",
   height: "50%"
 }
-
+const modalStyle = {
+  overlay: {
+    position: 'fixed',
+    marginTop: "10%",
+    marginLeft: "20%",
+    marginRight: "20%",
+    marginBottom: "10%",
+    backgroundColor: 'rgba(255, 255, 255, 0.0)'
+  },
+  content: {
+    position: 'absolute',
+    marginLeft: "5%",
+    border: '1px solid #ccc',
+    background: '#fff',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    borderRadius: '8px',
+    outline: 'none',
+    padding: '20px'
+  }
+}
 
 class HomePage extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -20,44 +42,44 @@ class HomePage extends Component {
       homeScrn: true,
       puzzleScrn: false,
       memScrn: false,
+      instruction: true
     }
 
     this.handleMemGame = this.handleMemGame.bind(this);
-    this.handlePuzzleGame = this.handlePuzzleGame.bind(this);
   }
 
   render() {
     console.log(this.props.location.state.userId);
     return (
-        <div>
-          <div style={{position:"static",marginLeft:"45%",marginRight:"35%",marginTop:"3%"}}>
-            <h1 style={{color:"white"}}>Choose a game</h1>
+      <div>
+        <Modal isOpen={this.state.instruction} style={modalStyle}>
+          <div style={{ marginLeft: "3%", marginTop: "2%" }}>
+            <h3>Welcome!</h3>
+            <p>You about to play two type of games: Puzzle & Memory Game</p>
+            <p>For each game you will need to pass three levels with increasing difficulty.</p>
+            <p>Your porpose is to finish each level as fast as you can. But in the most efficient way!</p>
+            <p>Each time you will make a mistake it will be counted and affect your game quality.</p>
+            <h5>Good Luck!</h5>
+            <Button className="btn btn-success" onClick={() => this.handleMemGame()}>OK</Button>
           </div>
-          <div style={{marginLeft:"37%",marginTop:"5%"}}>
-            <img src={PuzzleImg} onClick={this.handlePuzzleGame} style={chooseStyle}/>
-            <img src={MemImg} onClick={this.handleMemGame} style={chooseStyle}/>
-          </div>
-          <div style={{clear:"both"}}>
-            <h2 style={{float:"left",marginLeft:"41%"}}>Puzzle Game</h2>
-            <h2 style={{float:"right",marginRight:"27%"}}>Memory Game</h2>
-          </div>
-        </div>
+        </Modal>
+      </div>
     );
   }
 
-  handleMemGame(){
+  handleMemGame() {
     this.props.history.push({
-      pathname:'/memgame',
-      state:{userId: this.state.UserId }
+      pathname: '/memgame',
+      state: { userId: this.state.UserId }
     });
   }
 
-  handlePuzzleGame(){
-    this.props.history.push({
-      pathname:'/puzzlegame',
-      state:{userId: this.state.UserId }
-    });
-  }
+  /* handlePuzzleGame(){
+     this.props.history.push({
+       pathname:'/puzzlegame',
+       state:{userId: this.state.UserId }
+     });
+   }*/
 
 }
 
