@@ -212,7 +212,7 @@ class Board extends Component {
 
     sendResultsToDB() {
         //get existing array of result from db to update
-        axios.get('http://localhost:3000/vpdata/' + this.props.userId).then(
+        axios.get('193.106.55.176:3000/vpdata/' + this.props.userId).then(
             res => {
                 let resultArr = res.data.result;
                 //add new results object to the array
@@ -222,10 +222,9 @@ class Board extends Component {
                     level: this.props.level,
                     mistakes: this.state.mistakes,
                     moves: this.state.moves,
-                    quality: (1 - (this.state.mistakes / this.state.moves))
                 });
                 //post to server the result array to update
-                axios.post('http://localhost:3000/vpdata/update/' + this.props.userId, { result: resultArr })
+                axios.post('193.106.55.176:3000/vpdata/update/' + this.props.userId, { result: resultArr })
                     .then(res => { console.log(res); });
             }
         )

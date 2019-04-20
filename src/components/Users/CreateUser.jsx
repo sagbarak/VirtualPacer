@@ -7,32 +7,32 @@ class CreateUser extends Component {
         this.OnChangeAge = this.OnChangeAge.bind(this);
         this.OnChangeFirstName = this.OnChangeFirstName.bind(this);
         this.OnChangeLastName = this.OnChangeLastName.bind(this);
+        this.onChangeGender = this.onChangeGender.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
         this.state = {
             ObjectId: "",
             firstName: "",
             lastName: "",
-            age: 0
+            age: 0,
+            gender:""
         }
     }
 
     render() {
         return (
             <div style={{ position: "relative", marginLeft: "20%", top: "5%" }}>
-                <h1>Register</h1>
-                <form onSubmit={this.handleSubmit}>
+                <h1>Please </h1>
+                <form name ="newUser" onSubmit={this.handleSubmit}>
                     <div>
-                        <label>First Name:</label>
-                        <input type="text" name="First Name" onChange={this.OnChangeFirstName} value={this.state.firstName} />
-                    </div>
-                    <div>
-                        <label>Last Name:</label>
-                        <input type="text" name="Last Name" onChange={this.OnChangeLastName} value={this.state.lastName} />
-                    </div>
-                    <div>
-                        <label>Age:</label>
-                        <input type="number" name="Age" onChange={this.OnChangeAge} value={this.state.age} />
+                        <label>Age: </label>
+                        <input type="number" name="Age" onChange={this.OnChangeAge} value={this.state.age} /><br/>
+                        <label> Gender: </label>
+                        <select name="gender" onChange={this.onChangeGender} value={this.state.gender}>
+                            <option value="-">-</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                        </select>
                     </div>
                     <input type="submit" value="Submit" />
                 </form>
@@ -43,13 +43,21 @@ class CreateUser extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        const obj = {
-            "firstname": this.state.firstName,
-            "lastname": this.state.lastName,
-            "age": this.state.age
-        };
-
-        axios.post('http://localhost:3000/vpdata/add', obj)
+        var age=document.forms["newUser"]["Age"].value;
+        if(age<5 || age>99){
+            alert("Age not valid. needs to be between 5-99");
+        }
+        var gender = document.forms["newUser"]["gender"].value;
+        if(gender=="-"){
+            alert("Please choose your gender");
+        }
+        else{
+            const obj = {
+                "age": this.state.age,
+                "gender":this.state.gender
+            };
+        
+        axios.post('http://193.106.55.176:3000/vpdata/add', obj)
             .then(res => {
                 console.log(res.data.userId);
                 this.setState({ ObjectId: res.data.userId });
@@ -61,6 +69,7 @@ class CreateUser extends Component {
                     });
                 }, 1000);
             });
+        }
     }
 
     OnChangeAge(e) {
@@ -73,6 +82,10 @@ class CreateUser extends Component {
 
     OnChangeLastName(e) {
         this.setState({ lastName: e.target.value });
+    }
+
+    onChangeGender(){
+        this.setState({ gender: document.forms["newUser"]["gender"].value });
     }
 
 }

@@ -60,7 +60,7 @@ class App extends Component {
     
     sendResultsToDB(){
       //get existing array of result from db to update
-      axios.get('http://localhost:3000/vpdata/'+this.state.userId).then(
+      axios.get('193.106.55.176:3000/vpdata/'+this.state.userId).then(
           res=>{
              let resultArr = res.data.result;
              console.log(res)
@@ -74,7 +74,7 @@ class App extends Component {
                  quality: (1-(this.state.totalMistakes/this.state.totalMoves))
               });
              //post to server the result array to update
-             axios.post('http://localhost:3000/vpdata/update/'+this.state.userId,{result: resultArr})
+             axios.post('193.106.55.176:3000/vpdata/update/'+this.state.userId,{result: resultArr})
              .then(res=>{console.log(res);});  
           }
       )
