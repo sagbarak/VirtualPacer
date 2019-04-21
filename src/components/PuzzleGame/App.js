@@ -51,19 +51,16 @@ class App extends Component {
             level: 1,
             totalMistakes: 0,
             totalMoves: 0, 
-           // instruction: true,
             userId: this.props.location.state.userId,
-          //  newGame: true,
         }      
     }
 
     
-    sendResultsToDB(){
+     sendResultsToDB(){
       //get existing array of result from db to update
-      axios.get('193.106.55.176:3000/vpdata/'+this.state.userId).then(
+      axios.get('http://193.106.55.176:3000/vpdata/'+this.state.userId).then(
           res=>{
              let resultArr = res.data.result;
-             console.log(res)
              //add new results object to the array
              resultArr.push({
                  game: "puzzle",
@@ -74,11 +71,11 @@ class App extends Component {
                  quality: (1-(this.state.totalMistakes/this.state.totalMoves))
               });
              //post to server the result array to update
-             axios.post('193.106.55.176:3000/vpdata/update/'+this.state.userId,{result: resultArr})
+             axios.post('http://193.106.55.176:3000/vpdata/update/'+this.state.userId,{result: resultArr})
              .then(res=>{console.log(res);});  
           }
       )
-  }
+    }
 
     moves(){
       this.state.totalMoves++;
@@ -125,13 +122,8 @@ class App extends Component {
         var i = 0
         while(numB>0){
           var x = document.getElementById(100+(numB-1));
-          //console.log("this is X---> " + x.id);
           var y=x.firstElementChild;
-          //console.log("this is y---> " + y.id);
           if(y!=null){
-            console.log("this is y---> " + y.id)
-            /*var element= document.getElementById("");
-            element.remove(); */
             var bank = document.getElementById("300");
             bank.appendChild(document.getElementById(y.id));
             
@@ -140,13 +132,11 @@ class App extends Component {
         }
       
         var x = document.getElementById("500");
-     //   console.log("image is ======== "+x) 
         x.style.display = "block";
         var y = document.getElementById("400");
         y.style.display = "none";
         this.setState({isFinished: false, startTimer: Date.now()});
-       // alert("2")
-       // this.state.newGame= true;
+      
     } 
 
 
@@ -233,7 +223,7 @@ class App extends Component {
         </div>
      
         <ModalIstruction/>
-        <div style={{position:"relative",left:"20%",marginTop:"5%"}}>
+        <div draggable = "false" style={{position:"relative",left:"20%",marginTop:"5%"}}>
         <img src={image} className="im" id="500" width="250" height="320"   draggable = "false" />   
           { /*boxMap.map(bo =>   */<Bord gridSize={gridSize} mistakes={()=>this.mistakes()} moves={()=>this.moves()} checkWin={()=>this.checkWin()} /*startTime={startTime} isFinished={isFinished}boxMap={boxMap} boxOrder={bo.BOrder} />)}*//>}
           

@@ -29,10 +29,9 @@ class Bord extends Component {
                };
                bMap.push(boxOrder);
             }
-       // let bMap= this.props.boxMap;
-        //console.log("bmap = = = = " +bMap)
+      
         let str="repeat("+this.props.gridSize+", auto)" ;
-        let bordMap = bMap.map(bm => <PuzzleBord gridSize={this.props.gridSize} checkWin ={()=>this.checkWin()} mistakes={()=>this.mistakes()} moves={()=>this.moves()}startTime={this.props.startTime} isFinished={this.props.isFinished} boxOrder= {bm.BOrder} />);
+        let bordMap = bMap.map(bm => <PuzzleBord draggable = "false" gridSize={this.props.gridSize} checkWin ={()=>this.checkWin()} mistakes={()=>this.mistakes()} moves={()=>this.moves()}startTime={this.props.startTime} isFinished={this.props.isFinished} boxOrder= {bm.BOrder} />);
           
         const bord_style = {
             
@@ -47,7 +46,7 @@ class Bord extends Component {
         };
         
         return (
-            <div  class="grid-container" style={bord_style}>
+            <div class="grid-container" draggable = "false" style={bord_style}>
                {bordMap}
             </div>
         );

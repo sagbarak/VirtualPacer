@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css'
 import Modal from 'react-modal';
 import { Button } from 'react-bootstrap';
+import { ECANCELED } from 'constants';
 
 class CroppedPhoto extends Component {
     state = {
@@ -10,8 +11,7 @@ class CroppedPhoto extends Component {
         
     }
     drag(ev,id) {
-        ev.dataTransfer.setData("id", id);
-        console.log("drag data = "+ id);
+        ev.dataTransfer.setData("Text", ev.target.getAttribute('id'))
       }
       checkWin()
       {
@@ -29,20 +29,21 @@ class CroppedPhoto extends Component {
     drop(ev){
         this.moves();
         ev.preventDefault();
-        let data = ev.dataTransfer.getData("id");
-        let src = document.getElementById (data);
-        let srcRepalce = src.parentNode;
-        let srcParent = ev.target.parentNode;
-        srcParent.appendChild(document.getElementById(data));
-        srcRepalce.appendChild(document.getElementById(ev.target.id));
-        let data2 = parseInt(data)+100;
-        //let data3 = parseInt(ev.target.id)+100;
-        if(data2==srcParent.id /*&& data3== srcRepalce.id*/){
-         this.checkWin();
-        }
-        else
-        {
-            this.mistakes();
+        let data = ev.dataTransfer.getData("Text");
+        if(document.getElementById (data)!=null){
+            let src = document.getElementById (data);
+            let srcRepalce = src.parentNode;
+            let srcParent = ev.target.parentNode;
+            srcParent.appendChild(document.getElementById(data));
+            srcRepalce.appendChild(document.getElementById(ev.target.id));
+            let data2 = parseInt(data)+100;
+            if(data2==srcParent.id ){
+                this.checkWin();
+            }
+            else
+            {
+                this.mistakes();
+            }
         }
     }
     handleCloseModal(){
