@@ -17,24 +17,26 @@ class PuzzleBord extends Component {
 
     allowDrop(ev) {
         ev.preventDefault();
+        
       }
       
               
       
       drop(ev) {
-        this.props.moves();
         ev.preventDefault();
-        var data = ev.dataTransfer.getData("id");
-        ev.target.appendChild(document.getElementById(data));
-        var data2 = parseInt(data)+100;
-        if(data2==ev.target.id){
-         this.checkWin();
-        }
+        this.props.moves();
+        var data = ev.dataTransfer.getData("Text");
+        if(document.getElementById(data)!=null){
+          ev.target.appendChild(document.getElementById(data));
+          var data2 = parseInt(data)+100;
+          if(data2==ev.target.id){
+          this.checkWin();
+          }
 
-        else(
-          this.props.mistakes() 
-        )
-        
+          else(
+            this.props.mistakes() 
+          )
+        }
       }
   
 
@@ -52,7 +54,7 @@ class PuzzleBord extends Component {
         return (
         
       
-          <div  id={box_order} onDrop={event=> this.drop(event)} onDragOver={event=> this.allowDrop(event)} style={puzzleBord_style}>
+          <div  id={box_order} onDrop={event=> this.drop(event)} onDragOver={event=> this.allowDrop(event)} draggable = "false" style={puzzleBord_style}>
 
             </div>
          
