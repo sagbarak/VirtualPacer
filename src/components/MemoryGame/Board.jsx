@@ -106,7 +106,6 @@ class Board extends Component {
 
                 <div style={{ position: "fixed", top: "35%", left: "3%" }}>
                     <div style={{ padding: "0.5%" }}><Button bsStyle="light" onClick={this.props.openInsturction}>Instruction</Button></div>
-                    <div style={{ padding: "0.5%" }}><Button bsStyle="light" onClick={() => this.resetGame()}>Reset</Button></div>
                 </div>
 
             </div>
