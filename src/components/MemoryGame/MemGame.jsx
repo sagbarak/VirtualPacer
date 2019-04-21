@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Board from './Board';
 import Modal from 'react-modal';
 import { Button } from 'react-bootstrap';
-import card1 from '../../graphics/card1.jpg';
 import card2 from '../../graphics/card2.jpg';
 import card3 from '../../graphics/card3.png';
 import card4 from '../../graphics/card4.jpg';
@@ -19,6 +18,7 @@ import card14 from '../../graphics/card14.png';
 import card15 from '../../graphics/card15.jpg';
 import card16 from '../../graphics/card16.png';
 import card17 from '../../graphics/card17.jpg';
+import card18 from '../../graphics/card18.png';
 import './MemGame.css';
 
 Modal.setAppElement(document.getElementById('root'))
@@ -50,7 +50,7 @@ class MemGame extends Component {
 
         this.state = {
             imageList: [
-                card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12, card13, card14, card15, card16, card17
+                card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12, card13, card14, card15, card16, card17, card18
             ],
             rows: 2,
             columns: 5,

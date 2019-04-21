@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 const userRoutes = express.Router();
 let userScheme = require('./userScheme');
 
-mongoose.connect('mongodb://localhost:27017/vpdata', {useNewUrlParser: true});
+mongoose.connect('mongodb://193.106.55.176:23777/vpdata', {useNewUrlParser: true});
 
 const connection = mongoose.connection;
 

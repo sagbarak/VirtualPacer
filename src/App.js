@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <BrowserRouter>
       <div className="bgStyle">
-        <img src={Logo} style={{position:"absolute",left:"3%"}}/>
+        <img src={Logo} style={{position:"fixed",left:"3%" ,bottom:"75%"}}/>
         <Route exact path="/" component={CreateUser} />
         <Route path="/gameselect" component={HomePage} />
         <Route path="/memgame" component={MemoryGame} />

@@ -89,7 +89,7 @@ class Board extends Component {
                         <h3>Well Done!!</h3>
                         <p>Time: {this.state.seconds} seconds</p>
                         <p>You had {this.state.mistakes} mistakes</p>
-                        <p>Your game quality is: {parseFloat(Math.round((1 - (this.state.mistakes / this.state.moves)) * 100).toFixed(2))}%</p>
+                        
 
                         <div style={btnStyle}><Button style={btnStyle} bsStyle="success"
                             onClick={() => { this.handleNextLevel() }}>Next Level</Button></div>
@@ -212,7 +212,7 @@ class Board extends Component {
 
     sendResultsToDB() {
         //get existing array of result from db to update
-        axios.get('http://localhost:3000/vpdata/' + this.props.userId).then(
+        axios.get('http://193.106.55.176:3000/vpdata/' + this.props.userId).then(
             res => {
                 let resultArr = res.data.result;
                 //add new results object to the array
@@ -222,10 +222,9 @@ class Board extends Component {
                     level: this.props.level,
                     mistakes: this.state.mistakes,
                     moves: this.state.moves,
-                    quality: (1 - (this.state.mistakes / this.state.moves))
                 });
                 //post to server the result array to update
-                axios.post('http://localhost:3000/vpdata/update/' + this.props.userId, { result: resultArr })
+                axios.post('http://193.106.55.176:3000/vpdata/update/' + this.props.userId, { result: resultArr })
                     .then(res => { console.log(res); });
             }
         )
