@@ -4,10 +4,10 @@ import blankCard from '../../graphics/blank.png';
 
 
 const cardStyle={
-    width:"20%",
-    height:"40%",
+    width:"100%",
+    height:"100%",
     padding: 10,
-    borderRadius: 80,
+    borderRadius: 100,
     border: "black",
     cursor: 'pointer'
 }
