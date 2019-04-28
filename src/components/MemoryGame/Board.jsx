@@ -28,6 +28,16 @@ const modalStyle = {
     }
 }
 
+const level1Style = {
+    display: "grid",
+    gridTemplateColumns: "auto auto auto auto auto",
+    width:"80%"
+}
+const level2Style = {
+    display: "grid",
+    gridTemplateColumns: "auto auto auto auto"
+}
+
 const btnStyle = {
     padding: "0.5%"
 };
@@ -74,11 +84,20 @@ class Board extends Component {
 
 
     renderBoard() {
-        return (
-            this.state.board.map((card, index) => {
-                return (<div><Card key={card.id} card={card} flipCard={this.flipCard} /></div>)
-            })
-        )
+        if(this.props.columns==5){
+            return (
+                <div style={level1Style}>
+                {this.state.board.map((card) =><div style={{padding:"1%"}}><Card key={card.id} card={card} flipCard={this.flipCard} /></div>)}
+                </div>
+            )
+        }
+        else{
+            return (
+                <div style={level2Style}>
+                {this.state.board.map((card) => <div style={{padding:"1%"}}><Card key={card.id} card={card} flipCard={this.flipCard} /></div>)}
+                </div>
+            )
+        }
     }
 
     render() {
@@ -106,7 +125,6 @@ class Board extends Component {
 
                 <div style={{ position: "fixed", top: "35%", left: "3%" }}>
                     <div style={{ padding: "0.5%" }}><Button bsStyle="light" onClick={this.props.openInsturction}>Instruction</Button></div>
-                    <div style={{ padding: "0.5%" }}><Button bsStyle="light" onClick={() => this.resetGame()}>Reset</Button></div>
                 </div>
 
             </div>

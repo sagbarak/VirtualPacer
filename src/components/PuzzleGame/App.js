@@ -223,7 +223,7 @@ class App extends Component {
         </div>
      
         <ModalIstruction/>
-        <div draggable = "false" style={{position:"relative",left:"20%",marginTop:"5%"}}>
+        <div draggable = "false" style={{position:"relative",marginLeft:"20%",marginTop:"5%"}}>
         <img src={image} className="im" id="500" width="250" height="320"   draggable = "false" />   
           { /*boxMap.map(bo =>   */<Bord gridSize={gridSize} mistakes={()=>this.mistakes()} moves={()=>this.moves()} checkWin={()=>this.checkWin()} /*startTime={startTime} isFinished={isFinished}boxMap={boxMap} boxOrder={bo.BOrder} />)}*//>}
           
