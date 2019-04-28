@@ -135,7 +135,7 @@ class App extends Component {
         x.style.display = "block";
         var y = document.getElementById("400");
         y.style.display = "none";
-        this.setState({isFinished: false, startTimer: Date.now()});
+        this.setState({isFinished: false, totalMistakes: 0, totalMoves: 0,startTimer: Date.now()});
       
     } 
 
