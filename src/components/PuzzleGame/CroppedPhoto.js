@@ -43,6 +43,7 @@ class CroppedPhoto extends Component {
             else
             {
                 this.mistakes();
+                this.checkWin();
             }
         }
     }
@@ -62,7 +63,8 @@ class CroppedPhoto extends Component {
             height: (486/this.props.gridSize),
             backgroundPosition: this.props.startpxX + " " + this.props.startpxY,
             backgroundSize: (this.props.gridSize * 100) + "%",
-            border: 1+"px solid #aaaaaa"
+            border: 1+"px solid #aaaaaa",
+           
         };
         const id_num=this.props.idNum
         return (

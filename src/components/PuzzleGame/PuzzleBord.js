@@ -7,7 +7,7 @@ import { Button } from 'react-bootstrap';
 class PuzzleBord extends Component {
     state = {
         startTimer: this.props.startTime,
-       isFinished: this.props.isFinished
+       isFinished: this.props.isFinished,
         
     }
     checkWin()
@@ -33,9 +33,11 @@ class PuzzleBord extends Component {
           this.checkWin();
           }
 
-          else(
+          else{
             this.props.mistakes() 
-          )
+            this.checkWin();
+          }
+         
         }
       }
   
@@ -52,12 +54,12 @@ class PuzzleBord extends Component {
             
         };
         return (
-        
       
-          <div  id={box_order} onDrop={event=> this.drop(event)} onDragOver={event=> this.allowDrop(event)} draggable = "false" style={puzzleBord_style}>
+          <div  id={box_order} onDrop={event=> this.drop(event)}
+             onDragOver={event=> this.allowDrop(event)} draggable = "false" style={puzzleBord_style}>
+          </div>
+       
 
-            </div>
-         
         );
     }
 }
