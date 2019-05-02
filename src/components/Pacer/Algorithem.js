@@ -12,12 +12,11 @@ constructor(props){
         p: [],
         isFinished: this.props.isFinished,
         clearInterval: false,
-        firstTime: this.props.firstTime,
         flag: true,
         updateScore: true
     }
 
-        let myInterval= setInterval(()=>{ 
+        let myInterval = setInterval(()=>{ 
             console.log("interval number : " + myInterval)
             this.state.score=this.props.score
             //if(this.state.updateScore&&!this.state.firstTime){
@@ -38,7 +37,7 @@ constructor(props){
        this.props.algorithem(p)
     }
     else if(this.state.typeGame=="memory"){
-      // memory algorithem
+        this.props.algorithem();
     }
     
  }
@@ -60,7 +59,8 @@ constructor(props){
  }
  
  ready(){
-    const numP= (this.state.gridSize*this.state.gridSize)
+   if(this.state.typeGame==="puzzle"){
+    const numP = (this.state.gridSize*this.state.gridSize)
          
          for(let i=0;i<numP;i++){
              var x = 1000+i
@@ -69,7 +69,7 @@ constructor(props){
          
          this.setState({shuffled: true})
          shuffle(this.state.p)
-    
+    }  
  }
 
 render(){

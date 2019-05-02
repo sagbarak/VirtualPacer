@@ -5,6 +5,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'react-bootstrap';
 import Modal from 'react-modal';
 import axios from 'axios';
+import blankCard from '../../graphics/blank.png';
+import oppFound from '../../graphics/oppFound.png';
+import Algorithem from '../Pacer/Algorithem';
 
 const modalStyle = {
     overlay: {
@@ -35,7 +38,8 @@ const level1Style = {
 }
 const level2Style = {
     display: "grid",
-    gridTemplateColumns: "auto auto auto auto"
+    gridTemplateColumns: "auto auto auto auto",
+    width:"80%"
 }
 
 const btnStyle = {
@@ -58,6 +62,14 @@ const cardWrapper = {
     height: "60%"
 }
 
+const cardStyle={
+    width:"95%",
+    height:"95%",
+    padding: 10,
+    borderRadius: 100,
+    border: "black"
+}
+
 const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
 }
@@ -67,6 +79,7 @@ class Board extends Component {
         super(props);
         this.state = {
             board: this.initialBoard(this.props.rows, this.props.columns),
+            oppBoard: this.initialBoard(this.props.rows,this.props.columns),
             numOfOpenCards: 0,
             lastId: "",
             matchCounter: 0,
@@ -75,7 +88,9 @@ class Board extends Component {
             firstClick: false,
             resetRequest: false,
             seconds: 0,
-            mistakes: 0
+            mistakes: 0,
+            score: 0,
+            oppMatched:0
         }
         this.resetGame = this.resetGame.bind(this);
         this.stopCountingSeconds = this.stopCountingSeconds.bind(this);
@@ -100,6 +115,51 @@ class Board extends Component {
         }
     }
 
+    renderOpponentBoard(){
+        if(this.props.columns==5){
+            return (
+                <div style={level1Style}>
+                {this.state.oppBoard.map((card) =><div style={{padding:"1%"}}><img src={this.oppCardImg(card)} style={cardStyle} /></div>)}
+                </div>
+            )
+        }
+        else{
+            return (
+                <div style={level2Style}>
+                {this.state.oppBoard.map((card) => <div style={{padding:"1%"}}><img src={this.oppCardImg(card)} style={cardStyle} /></div>)}
+                </div>
+            )
+        }
+    }
+
+    PacerAction(){
+        let newState = this.state;
+        let cardFlag=false;
+        let card;
+        let counter=0;
+        if(newState.oppMatched<newState.oppBoard.length/2){
+            while(!cardFlag){
+                card = newState.oppBoard[Math.floor(Math.random()*newState.oppBoard.length)];
+                if(!card.faceUp){
+                    card.faceUp=true;
+                    counter++;
+                }
+                if(counter==2){
+                    cardFlag=true;
+                }
+                this.setState({oppMatched:this.state.oppMatched+1})
+            }
+        } 
+    }
+
+    oppCardImg(card){
+        if(card.faceUp){
+            return oppFound;
+        }
+        else{
+            return blankCard;
+        }
+    }
     render() {
         return (
             <div>
@@ -117,9 +177,16 @@ class Board extends Component {
                     </div>
                 </Modal>
 
-                <div>
-                    <div style={cardWrapper}>
+                <div style={{display:"grid",gridTemplateColumns:"auto auto",gridColumnGap:"10px",width:"80%",marginLeft:"20%",marginTop:"5%"}}>
+                    <div>
+                    <h2>Player Board</h2>
                         {this.renderBoard()}
+                    </div>
+                    <div>
+                        <h2 style={{left:"40%"}}>Opponent Board</h2>
+                        {this.renderOpponentBoard()}
+                        <Algorithem typeGame= {"memory"} gridSize={this.state.oppBoard.length/2} algorithem={()=>{this.PacerAction()}} 
+                            isFinished={this.state.isFinished} score={this.state.score} />
                     </div>
                 </div>
 
@@ -147,6 +214,7 @@ class Board extends Component {
     resetGame = () => {
         let newState = Object.assign({}, this.state);
         newState.board = this.initialBoard(this.props.rows, this.props.columns);
+        newState.oppBoard = this.initialBoard(this.props.rows, this.props.columns);
         newState.numOfOpenCars = 0;
         newState.lastId = "";
         newState.isFinished = false;
@@ -155,6 +223,8 @@ class Board extends Component {
         newState.firstClick = false;
         newState.seconds = 0;
         newState.mistakes = 0;
+        newState.score = 0;
+        newState.oppMatched = 0;
         this.setState(newState);
     }
 
@@ -225,6 +295,9 @@ class Board extends Component {
                 this.setState({ isFinished: true });
             })
             this.sendResultsToDB();
+        }
+        else{
+            this.setState({score: this.state.matchCounter/(this.state.board.length/2)})
         }
     }
 
