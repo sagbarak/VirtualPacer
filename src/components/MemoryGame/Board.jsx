@@ -80,6 +80,7 @@ class Board extends Component {
         this.state = {
             board: this.initialBoard(this.props.rows, this.props.columns),
             oppBoard: this.initialBoard(this.props.rows,this.props.columns),
+            oppBoardIndexArr: this.createOppIndexArr(this.props.rows,this.props.columns),
             numOfOpenCards: 0,
             lastId: "",
             matchCounter: 0,
@@ -115,6 +116,7 @@ class Board extends Component {
         }
     }
 
+    
     renderOpponentBoard(){
         if(this.props.columns==5){
             return (
@@ -132,26 +134,24 @@ class Board extends Component {
         }
     }
 
+    // Logic for flipping two card on opponent board, this fuction activated by Pacer Algorithm.
     PacerAction(){
         let newState = this.state;
-        let cardFlag=false;
-        let card;
-        let counter=0;
-        if(newState.oppMatched<newState.oppBoard.length/2){
-            while(!cardFlag){
-                card = newState.oppBoard[Math.floor(Math.random()*newState.oppBoard.length)];
-                if(!card.faceUp){
-                    card.faceUp=true;
-                    counter++;
-                }
-                if(counter==2){
-                    cardFlag=true;
-                }
-                this.setState({oppMatched:this.state.oppMatched+1})
+        let index;
+        /**
+         * poll 2 indexes from oppBoard index array and mark the fitting card on opponent board
+         */
+        if(newState.oppBoardIndexArr.length>=2){
+            for(var i=0;i<2;i++){
+                index = newState.oppBoardIndexArr.pop();
+                newState.oppBoard[index].faceUp = true;
+                newState.oppMatched=newState.oppMatched+1;
             }
-        } 
+        }
+        this.setState(newState);    
     }
 
+    // return state of card for opponent board (face up or down)
     oppCardImg(card){
         if(card.faceUp){
             return oppFound;
@@ -160,6 +160,7 @@ class Board extends Component {
             return blankCard;
         }
     }
+
     render() {
         return (
             <div>
@@ -197,10 +198,12 @@ class Board extends Component {
             </div>
         );
     }
+
     setTimeResult = (result) => {
         this.setState({ time: result });
         console.log(this.state.time);
     }
+
     handleCloseModal() {
         this.setState({ isFinished: false });
     }
@@ -215,6 +218,7 @@ class Board extends Component {
         let newState = Object.assign({}, this.state);
         newState.board = this.initialBoard(this.props.rows, this.props.columns);
         newState.oppBoard = this.initialBoard(this.props.rows, this.props.columns);
+        newState.oppBoardIndexArr = this.createOppIndexArr(this.props.rows,this.props.columns);
         newState.numOfOpenCars = 0;
         newState.lastId = "";
         newState.isFinished = false;
@@ -227,6 +231,7 @@ class Board extends Component {
         newState.oppMatched = 0;
         this.setState(newState);
     }
+
 
     countSeconds() {
         this.timer = setInterval((() => {
@@ -322,12 +327,12 @@ class Board extends Component {
     }
 
 
-    shuffleImageList(imageList) {
-        for (let i = imageList.length - 1; i > 0; i--) {
+    shuffleList(list) {
+        for (let i = list.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [imageList[i], imageList[j]] = [imageList[j], imageList[i]];
+            [list[i], list[j]] = [list[j], list[i]];
         }
-        return imageList;
+        return list;
     }
 
     //choose random images at half size of board
@@ -342,7 +347,7 @@ class Board extends Component {
                 data.push(selectedImage, selectedImage);
             }
         }
-        data = this.shuffleImageList(data);
+        data = this.shuffleList(data);
         return data;
     }
 
@@ -359,6 +364,14 @@ class Board extends Component {
             };
         }
         return board;
+    }
+    createOppIndexArr(rows,columns){
+        let arr=[];
+        for(var i=0;i<rows*columns;i++){
+            arr.push(i);
+        }
+        arr = this.shuffleList(arr);
+        return arr;
     }
 }
 
