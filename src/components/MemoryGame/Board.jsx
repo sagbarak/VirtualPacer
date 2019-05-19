@@ -92,9 +92,7 @@ class Board extends Component {
             mistakes: 0,
             score: 0,
             oppMatched:0,
-            playerCorrectTimeSum:0,
-            playerAvgCorrectTime:0,
-            playerAvgStartCount:0,
+            newLevel: true
         }
         this.resetGame = this.resetGame.bind(this);
         this.stopCountingSeconds = this.stopCountingSeconds.bind(this);
@@ -190,7 +188,8 @@ class Board extends Component {
                         <h2 style={{left:"40%"}}>Opponent Board</h2>
                         {this.renderOpponentBoard()}
                         <Algorithem typeGame= {"memory"} gridSize={this.state.oppBoard.length/2} algorithem={()=>{this.PacerAction()}} 
-                            isFinished={this.state.isFinished} score={this.state.score} />
+                            isFinished={this.state.isFinished} score={this.state.score} p={this.state.oppBoardIndexArr}
+                            newLevel={this.state.newLevel}/>
                     </div>
                 </div>
 
@@ -215,6 +214,9 @@ class Board extends Component {
         this.handleCloseModal();
         this.props.nextLevel();
         setTimeout(() => { this.resetGame() }, 300);
+       // alert("next level")
+        this.setState({newLevel: true})
+
     }
 
     resetGame = () => {
@@ -232,9 +234,6 @@ class Board extends Component {
         newState.mistakes = 0;
         newState.score = 0;
         newState.oppMatched = 0;
-        newState.playerAvgCorrectTime = 0;
-        newState.playerAvgStartCount = 0;
-        newState.playerCorrectTimeSum = 0;
         this.setState(newState);
     }
 
@@ -254,6 +253,8 @@ class Board extends Component {
 
     flipCard = (id) => {
         let newState = this.state;
+        console.log("id " + id);
+        console.log("last id " + newState.lastId);
         if (!newState.firstClick) {
             newState.firstClick = true;
             this.countSeconds();
@@ -265,20 +266,17 @@ class Board extends Component {
                     if (newState.numOfOpenCards < 2) { // if less then 2 cards are open you can flip with no check
                         card.faceUp = true;
                         newState.numOfOpenCards += 1;
+                        console.log(newState.numOfOpenCards);
                     }
                     if (newState.numOfOpenCards === 2) { //comparsion of cards 
+                        console.log("2 cards check")
                         newState.board.map(card2 => {
                             if (card2.id === newState.lastId) {
+                                console.log("found second card");
                                 if (card2.imgUrl === card.imgUrl) {
                                     card.paired = true;
                                     card2.paired = true;
                                     newState.matchCounter++;
-                                    //sum of all player correct moves
-                                    newState.playerCorrectTimeSum = newState.playerCorrectTimeSum + 
-                                        (this.state.seconds - newState.playerAvgStartCount);
-                                    newState.playerAvgStartCount = this.state.seconds;
-                                    newState.playerAvgCorrectTime = newState.playerCorrectTimeSum / newState.matchCounter;
-                                    console.log("avg time: " + newState.playerAvgCorrectTime)
                                 }
                                 else if (card2.imgUrl !== card.imgUrl) {
                                     sleep(500).then(() => {
@@ -304,9 +302,9 @@ class Board extends Component {
         if (this.state.matchCounter === (this.state.board.length / 2)) {
             this.stopCountingSeconds();
             sleep(200).then(() => {
-                this.setState({ isFinished: true });
+                this.setState({ isFinished: true, newLevel:false });
             })
-            this.sendResultsToDB();
+           // this.sendResultsToDB();
         }
         else{
             this.setState({score: this.state.matchCounter/(this.state.board.length/2)})
@@ -372,7 +370,6 @@ class Board extends Component {
         }
         return board;
     }
-    
     createOppIndexArr(rows,columns){
         let arr=[];
         for(var i=0;i<rows*columns;i++){

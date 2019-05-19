@@ -59,7 +59,8 @@ class App extends Component {
             firstTime: true,
             boxMap: [],
             arr: [],
-            image: ""
+            image: "",
+            p: []
            // userId: this.props.location.state.userId,
         }      
        
@@ -87,11 +88,11 @@ class App extends Component {
       )
     }
 
-    algorithem(p){
-      console.log("algo: " + p)
+    algorithem(){
+      console.log("algo: " + this.state.p)
          
       if(this.state.input_num>=3){    
-        var success=p.pop()
+        var success=this.state.p.pop()
         var x= document.getElementById(success)
         console.log(x)
           if(x!=null){
@@ -99,6 +100,16 @@ class App extends Component {
           }
       }
     
+    }
+
+    ready(){
+      const numP= (this.state.input_num*this.state.input_num)
+         
+      for(let i=0;i<numP;i++){
+          var x = 1000+i
+          this.state.p.push(x)
+      }
+      shuffle(this.state.p)
     }
 
     moves(){
@@ -136,7 +147,7 @@ class App extends Component {
         this.state.correctAns=0
         if (flag){
           var millis=Date.now()-this.state.startTimer;
-          this.setState({startTimer: millis/1000 , isFinished: true, flag:false, newGame: true})
+          this.setState({startTimer: millis/1000 , isFinished: true,p: [], flag:false, newGame: true})
           //this.sendResultsToDB();  
           
         }
@@ -252,7 +263,7 @@ clean(){
              <h1>PLAYER</h1>
             <Bord gridSize={this.state.input_num} mistakes={()=>this.mistakes()} moves={()=>this.moves()} checkWin={()=>this.checkWin()} pacer={false} style= {{float: 'left',overflow: 'auto'}}></Bord>
             </div>
-            <PacerBord typeGame= {this.state.typeGame} gridSize={this.state.input_num} algorithem={(p)=>this.algorithem(p)}  firstTime={this.state.firstTime} flag={this.state.flag} isFinished={this.state.isFinished} mistakes={()=>this.mistakes()} moves={()=>this.moves()} score= {this.state.score} checkWin={()=>this.checkWin()} ></PacerBord>
+            <PacerBord typeGame= {this.state.typeGame} ready={()=> this.ready()} p={this.state.p} gridSize={this.state.input_num} algorithem={()=>this.algorithem()}  firstTime={this.state.firstTime} flag={this.state.flag} isFinished={this.state.isFinished} mistakes={()=>this.mistakes()} moves={()=>this.moves()} score= {this.state.score} checkWin={()=>this.checkWin()} ></PacerBord>
 
           </div>
              <div className="gamePieces" >

@@ -6,14 +6,18 @@ constructor(props){
     super(props)
     this.state={
         gridSize: this.props.gridSize,
-        score: this.props.score    
+        score: this.props.score, 
     }
     
         
 }
 
-algorithem(p){
-    this.props.algorithem(p)
+ready(){
+   this.props.ready()
+}
+
+algorithem(){
+    this.props.algorithem()
 }
 
 render(){
@@ -29,7 +33,10 @@ render(){
             <h1>OPPONENT</h1>
            
           <Bord gridSize={this.props.gridSize} pacer={true} score={this.props.score}></Bord>
-          <Algorithem typeGame= {this.props.typeGame} gridSize={this.props.gridSize} algorithem={(p)=>this.algorithem(p)} flag={this.props.flag} firstTime={this.props.firstTime} isFinished={this.props.isFinished} score={this.props.score}></Algorithem>
+          <Algorithem typeGame= {this.props.typeGame} algorithem={()=>this.algorithem()} 
+              ready={()=>this.ready()} p={this.props.p} gridSize={this.props.gridSize} 
+              flag={this.props.flag} firstTime={this.props.firstTime} isFinished={this.props.isFinished} 
+              score={this.props.score}></Algorithem>
         </div>
 
     );
