@@ -24,7 +24,7 @@ class Algorithem extends Component {
         }
 
         let myInterval = setInterval(() => {
-            console.log("interval number : " + myInterval)
+            //console.log("interval number : " + myInterval)
             var millis = (Date.now() - this.state.Time) / 1000;
             if (this.state.countOfCorrect > 0) {
                 this.state.avgSpeed = millis / this.state.countOfCorrect
@@ -33,7 +33,7 @@ class Algorithem extends Component {
                 this.state.countOfCorrect++
                 // alert(this.state.avgSpeed)
             }
-            console.log(this.state.avgSpeed)
+            //console.log(this.state.avgSpeed)
             this.state.score = this.props.score
             this.setState({
                 score: this.props.score, isFinished: this.props.isFinished, gridSize: this.props.gridSize,
@@ -61,7 +61,7 @@ class Algorithem extends Component {
     speed() {
         // alert(this.state.avgSpeed)
         let startSpeed = this.state.avgSpeed
-        console.log("startSpeed = " + startSpeed)
+        //console.log("startSpeed = " + startSpeed)
         let idividualPacer
         let time
         this.state.gridSize = this.props.gridSize
@@ -97,7 +97,7 @@ class Algorithem extends Component {
                 score = pacerScore * 6000
             }
         }
-        console.log("score :  " + score)
+        //console.log("score :  " + score)
         if ((size / 3) * 2 <= this.state.p.length) {
             PacerProgress = this.state.p.length * 200
         }
@@ -159,13 +159,13 @@ class Algorithem extends Component {
 
             var intervalD = setInterval(() => {
 
-                console.log("second interval num: " + intervalD)
-                console.log("length of p is : " + this.state.p.length)
+                //console.log("second interval num: " + intervalD)
+                //console.log("length of p is : " + this.state.p.length)
                 clearInterval(intervalD)
                 intervalD = false
                 this.interval(level)
-                console.log(speedPacer)
-                console.log("clear interval num: " + intervalD)
+                //console.log(speedPacer)
+                //console.log("clear interval num: " + intervalD)
                 this.algorithem(level)
             }, speedPacer)
         }

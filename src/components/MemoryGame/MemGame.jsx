@@ -54,6 +54,7 @@ class MemGame extends Component {
             ],
             rows: 2,
             columns: 5,
+            userId: this.props.location.state.userId,
             instruction: true,
             level: 1
         }

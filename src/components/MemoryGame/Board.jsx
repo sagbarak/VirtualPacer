@@ -94,7 +94,8 @@ class Board extends Component {
             oppMatched:0,
             newLevel: true,
             winneris: "You Win!",
-            gameStart: false
+            gameStart: false,
+            userId: this.props.userId
         }
         this.resetGame = this.resetGame.bind(this);
         this.stopCountingSeconds = this.stopCountingSeconds.bind(this);
@@ -316,7 +317,7 @@ class Board extends Component {
             sleep(200).then(() => {
                 this.setState({ isFinished: true, newLevel:false });
             })
-           // this.sendResultsToDB();
+            this.sendResultsToDB();
         }
         else{
             this.setState({score: this.state.matchCounter/(this.state.board.length/2)})
@@ -325,9 +326,11 @@ class Board extends Component {
 
     sendResultsToDB() {
         //get existing array of result from db to update
-        axios.get('http://193.106.55.176:3000/vpdata/' + this.props.userId).then(
+        console.log(this.props.userId);
+        axios.get('http://193.106.55.176:3000/vpdata/' + this.state.userId).then(
             res => {
                 let resultArr = res.data.result;
+                 console.log(res);
                 //add new results object to the array
                 resultArr.push({
                     game: "memory",
@@ -338,7 +341,7 @@ class Board extends Component {
                     moves: this.state.moves,
                 });
                 //post to server the result array to update
-                axios.post('http://193.106.55.176:3000/vpdata/update/' + this.props.userId, { result: resultArr })
+                axios.post('http://193.106.55.176:3000/vpdata/update/' + this.state.userId, { result: resultArr })
                     .then(res => { console.log(res); });
             }
         )
