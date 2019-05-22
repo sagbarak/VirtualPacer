@@ -92,7 +92,9 @@ class Board extends Component {
             mistakes: 0,
             score: 0,
             oppMatched:0,
-            newLevel: true
+            newLevel: true,
+            winneris: "You Win!",
+            gameStart: false
         }
         this.resetGame = this.resetGame.bind(this);
         this.stopCountingSeconds = this.stopCountingSeconds.bind(this);
@@ -168,31 +170,36 @@ class Board extends Component {
                 <Modal isOpen={this.state.isFinished} style={modalStyle}>
                     <div style={{ marginLeft: "3%", marginTop: "2%" }}>
                         <h3>Well Done!!</h3>
+                        <h5>{this.state.winneris}</h5>
                         <p>Time: {this.state.seconds} seconds</p>
                         <p>You had {this.state.mistakes} mistakes</p>
                         
 
                         <div style={btnStyle}><Button style={btnStyle} bsStyle="success"
                             onClick={() => { this.handleNextLevel() }}>Next Level</Button></div>
-                        <div style={btnStyle}><Button style={btnStyle} bsStyle="danger"
-                            onClick={() => { this.resetGame() }}>Reset</Button></div>
                     </div>
                 </Modal>
 
-                <div style={{display:"grid",gridTemplateColumns:"auto auto",gridColumnGap:"10px",width:"80%",marginLeft:"20%",marginTop:"5%"}}>
-                    <div>
-                    <h2>Player Board</h2>
-                        {this.renderBoard()}
+                {this.state.gameStart? 
+                    <div style={{display:"grid",gridTemplateColumns:"auto auto",gridColumnGap:"10px",width:"80%",marginLeft:"20%",marginTop:"5%"}}>
+                        <div>
+                        <h2>Player Board</h2>
+                            {this.renderBoard()}
+                        </div>
+                        <div>
+                            <h2 style={{left:"40%"}}>Opponent Board</h2>
+                            {this.renderOpponentBoard()}
+                            <Algorithem typeGame= {"memory"} gridSize={this.state.oppBoard.length/2} algorithem={()=>{this.PacerAction()}} 
+                                isFinished={this.state.isFinished} score={this.state.score} p={this.state.oppBoardIndexArr}
+                                newLevel={this.state.newLevel}/>
+                        </div>
                     </div>
+                    :
                     <div>
-                        <h2 style={{left:"40%"}}>Opponent Board</h2>
-                        {this.renderOpponentBoard()}
-                        <Algorithem typeGame= {"memory"} gridSize={this.state.oppBoard.length/2} algorithem={()=>{this.PacerAction()}} 
-                            isFinished={this.state.isFinished} score={this.state.score} p={this.state.oppBoardIndexArr}
-                            newLevel={this.state.newLevel}/>
+                        <Button style={{marginLeft:"50%",marginTop:"20%",padding:"2%"}} bsStyle="light" 
+                            onClick={()=>{this.setState({gameStart:true}); this.countSeconds()}}>Start</Button>
                     </div>
-                </div>
-
+                }
                 <div style={{ position: "fixed", top: "35%", left: "3%" }}>
                     <div style={{ padding: "0.5%" }}><Button bsStyle="light" onClick={this.props.openInsturction}>Instruction</Button></div>
                 </div>
@@ -214,7 +221,6 @@ class Board extends Component {
         this.handleCloseModal();
         this.props.nextLevel();
         setTimeout(() => { this.resetGame() }, 300);
-       // alert("next level")
         this.setState({newLevel: true})
 
     }
@@ -234,14 +240,20 @@ class Board extends Component {
         newState.mistakes = 0;
         newState.score = 0;
         newState.oppMatched = 0;
+        newState.winneris = "You Win! ";
+        this.countSeconds();
         this.setState(newState);
     }
 
 
     countSeconds() {
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         this.timer = setInterval((() => {
-            this.setState({ seconds: this.state.seconds + 1 });
-        }).bind(this), 1000);
+            if(this.state.oppMatched == this.state.oppBoard.length){
+                this.setState({ winneris: "You Lose"})
+            }
+            this.setState({ seconds: this.state.seconds + 0.5 });
+        }).bind(this), 500);
         console.log(this);
     }
 
@@ -255,10 +267,10 @@ class Board extends Component {
         let newState = this.state;
         console.log("id " + id);
         console.log("last id " + newState.lastId);
-        if (!newState.firstClick) {
+       /* if (!newState.firstClick) {
             newState.firstClick = true;
             this.countSeconds();
-        }
+        }*/
         newState.board.map(card => {
             if (card.id === id) { //find card by id
                 if (!card.faceUp) { //if card is face down, you can flip it
