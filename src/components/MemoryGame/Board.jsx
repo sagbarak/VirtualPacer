@@ -331,6 +331,7 @@ class Board extends Component {
                 //add new results object to the array
                 resultArr.push({
                     game: "memory",
+                    pacerver: 1,
                     time: this.state.seconds,
                     level: this.props.level,
                     mistakes: this.state.mistakes,

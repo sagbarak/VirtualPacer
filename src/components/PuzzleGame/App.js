@@ -75,6 +75,7 @@ class App extends Component {
              //add new results object to the array
              resultArr.push({
                  game: "puzzle",
+                 pacerver: 1,
                  time:this.state.startTimer, 
                  level:this.state.level, 
                  mistakes: this.state.totalMistakes,
