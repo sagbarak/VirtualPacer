@@ -184,11 +184,11 @@ class Board extends Component {
                 {this.state.gameStart? 
                     <div style={{display:"grid",gridTemplateColumns:"auto auto",gridColumnGap:"10px",width:"80%",marginLeft:"20%",marginTop:"5%"}}>
                         <div>
-                        <h2>Player Board</h2>
+                        <h2 style={{color:"white"}}>PLAYER</h2>
                             {this.renderBoard()}
                         </div>
                         <div>
-                            <h2 style={{left:"40%"}}>Opponent Board</h2>
+                            <h2 style={{left:"40%"}}>OPPONENT</h2>
                             {this.renderOpponentBoard()}
                             <Algorithem typeGame= {"memory"} gridSize={this.state.oppBoard.length/2} algorithem={()=>{this.PacerAction()}} 
                                 isFinished={this.state.isFinished} score={this.state.score} p={this.state.oppBoardIndexArr}

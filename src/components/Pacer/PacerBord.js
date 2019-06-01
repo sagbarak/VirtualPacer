@@ -30,7 +30,7 @@ render(){
     
     return(
         <div id= 'PacerBord' style={BordStyle}>
-            <h1>OPPONENT</h1>
+            <h1 style={{textAlign:"left"}}>OPPONENT</h1>
            
           <Bord gridSize={this.props.gridSize} pacer={true} score={this.props.score}></Bord>
           <Algorithem typeGame= {this.props.typeGame} algorithem={()=>this.algorithem()} 

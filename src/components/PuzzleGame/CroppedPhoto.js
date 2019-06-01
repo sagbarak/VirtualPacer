@@ -59,8 +59,8 @@ class CroppedPhoto extends Component {
        
         const puzzle_style = {
             backgroundImage: "url(" + this.props.img_path + ")",
-            width: (486/this.props.gridSize),
-            height: (486/this.props.gridSize),
+            width: (300/this.props.gridSize),
+            height: (300/this.props.gridSize),
             backgroundPosition: this.props.startpxX + " " + this.props.startpxY,
             backgroundSize: (this.props.gridSize * 100) + "%",
             border: 1+"px solid #aaaaaa",

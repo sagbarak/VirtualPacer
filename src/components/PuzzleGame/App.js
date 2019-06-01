@@ -60,8 +60,8 @@ class App extends Component {
             boxMap: [],
             arr: [],
             image: "",
-            p: []
-           // userId: this.props.location.state.userId,
+            p: [],
+            userId: this.props.location.state.userId,
         }      
        
     }
@@ -149,7 +149,7 @@ class App extends Component {
         if (flag){
           var millis=Date.now()-this.state.startTimer;
           this.setState({startTimer: millis/1000 , isFinished: true,p: [], flag:false, newGame: true})
-          //this.sendResultsToDB();  
+          this.sendResultsToDB();  
           
         }
       
@@ -259,9 +259,9 @@ clean(){
         <ModalIstruction/>
         <div id='600' draggable = "false" style={{display:'none' ,position:"relative",marginLeft:"20%",marginTop:"5%"}}>
         <img src={this.state.image} className="im" id="500" width="250" height="320"   draggable = "false" />   
-          <div id= 'bords'  style= {{display: "grid", 'grid-gap': "20%", 'grid-template-columns': "auto auto"}}>
+          <div id= 'bords'  style= {{display: "grid", 'grid-gap': "1%", 'grid-template-columns': "auto auto", padding:"1%"}}>
            <div id = 'playerBord'>
-             <h1>PLAYER</h1>
+             <h1 style={{textAlign:"left",color:"white"}}>PLAYER</h1>
             <Bord gridSize={this.state.input_num} mistakes={()=>this.mistakes()} moves={()=>this.moves()} checkWin={()=>this.checkWin()} pacer={false} style= {{float: 'left',overflow: 'auto'}}></Bord>
             </div>
             <PacerBord typeGame= {this.state.typeGame} ready={()=> this.ready()} p={this.state.p} gridSize={this.state.input_num} algorithem={()=>this.algorithem()}  firstTime={this.state.firstTime} flag={this.state.flag} isFinished={this.state.isFinished} mistakes={()=>this.mistakes()} moves={()=>this.moves()} score= {this.state.score} checkWin={()=>this.checkWin()} ></PacerBord>

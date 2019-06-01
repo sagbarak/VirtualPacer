@@ -45,8 +45,8 @@ class PuzzleBord extends Component {
     render() {
         const box_order=this.props.boxOrder;
         const puzzleBord_style = {
-            width: (486/this.props.gridSize),
-            height: (486/this.props.gridSize),
+            width: (300/this.props.gridSize),
+            height: (300/this.props.gridSize),
             "background-color": "rgba(180, 180, 200, 0.3)",
             transpernt: "20%",
             /*padding: 10px;*/
