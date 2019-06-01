@@ -197,7 +197,7 @@ class Board extends Component {
                     </div>
                     :
                     <div>
-                        <Button style={{marginLeft:"50%",marginTop:"20%",padding:"2%"}} bsStyle="light" 
+                        <Button style={{marginLeft:"45%",marginTop:"20%",padding:"2%"}} bsStyle="light" 
                             onClick={()=>{this.setState({gameStart:true}); this.countSeconds()}}>Start</Button>
                     </div>
                 }

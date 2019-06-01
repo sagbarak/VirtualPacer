@@ -252,8 +252,8 @@ clean(){
          
           {/*<input type="text" name="fname" onChange={e => this.handleInputChange(e)}/>*/}
    
-        <div className="buttons" id= "400">
-          <Button variant="success" size='lg' onClick={e => this.handleInputChange(e=3)} >START</Button>
+        <div id= "400">
+          <Button style={{marginLeft:"7%",marginTop:"20%",padding:"2%"}} bsStyle="light" onClick={e => this.handleInputChange(e=3)} >START</Button>
         </div>
      
         <ModalIstruction/>
