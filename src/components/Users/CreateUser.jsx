@@ -1,6 +1,26 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+const formStyle={
+    position: "absolute",
+    top: "3%",
+    left: "26%",
+    right: "30%",
+    textAlign: "center",
+    backgroundColor:"rgb(255,251,238)",
+    borderRadius: "10px",
+    border:"1px solid",
+    fontFamily: "cursive"
+}
+
+const submitButton={
+    border: "2px solid orange",
+    borderRadius: "5px",
+    background: "white",
+    fontSize: "20px",
+    padding: "1%"
+
+}
 class CreateUser extends Component {
     constructor(props) {
         super(props);
@@ -21,21 +41,23 @@ class CreateUser extends Component {
 
     render() {
         return (
-            <div style={{ position: "relative", marginLeft: "20%", top: "5%" }}>
-                <h1>Please </h1>
+            <div style={formStyle}>
+                <div style={{padding:"5%"}}>
+                <h2>Please fill the following details:</h2>
                 <form name ="newUser" onSubmit={this.handleSubmit}>
-                    <div>
-                        <label>Age: </label>
+                    <div style={{marginTop:"2%"}}>
+                        <label style={{fontSize:"25px", padding:"0.5%"}}>Age: </label>
                         <input type="number" name="Age" onChange={this.OnChangeAge} value={this.state.age} /><br/>
-                        <label> Gender: </label>
+                        <label style={{fontSize:"25px",padding:"0.5%"}}> Gender: </label>
                         <select name="gender" onChange={this.onChangeGender} value={this.state.gender}>
                             <option value="-">-</option>
                             <option value="Female">Female</option>
                             <option value="Male">Male</option>
                         </select>
                     </div>
-                    <input type="submit" value="Submit" />
+                    <input style={submitButton} type="submit" value="Submit" />
                 </form>
+                </div>
             </div>
         );
     }

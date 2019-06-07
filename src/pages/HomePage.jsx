@@ -57,10 +57,11 @@ class HomePage extends Component {
             <h3>Welcome!</h3>
             <p>You about to play two type of games: Puzzle & Memory Game</p>
             <p>For each game you will need to pass three levels with increasing difficulty.</p>
-            <p>Your porpose is to finish each level as fast as you can. But in the most efficient way!</p>
-            <p>Each time you will make a mistake it will be counted and affect your game quality.</p>
+            <p>With you an opponent will play the same level as you,</p>
+            <p>Your porpose is to finish each level as faster as you can. But in the most efficient way!</p>
+            
             <h5>Good Luck!</h5>
-            <Button className="btn btn-success" onClick={() => this.handleMemGame()}>OK</Button>
+            <Button className="btn btn-warning" onClick={() => this.handleMemGame()}>OK</Button>
           </div>
         </Modal>
       </div>

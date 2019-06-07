@@ -19,6 +19,16 @@ import Modal from 'react-modal';
 import axios from 'axios';
 import ModalIstruction from './ModalInstruction'
 
+const startButtonStyle={
+  marginLeft:"5%",
+  marginRight:"10%",
+  marginTop:"10%",
+  padding:"2%",
+  borderRadius:"100px",
+  fontFamily:"cursive", 
+  fontSize:"30px",
+  color:"rgb(176,76,0)"
+}
 
 const modalStyle ={
   overlay: {
@@ -97,7 +107,7 @@ class App extends Component {
         var x= document.getElementById(success)
         console.log(x)
           if(x!=null){
-              x.style.backgroundColor= "green"
+              x.style.backgroundColor= "rgb(226,184,67)"
           }
       }
     
@@ -253,15 +263,15 @@ clean(){
           {/*<input type="text" name="fname" onChange={e => this.handleInputChange(e)}/>*/}
    
         <div id= "400">
-          <Button style={{marginLeft:"7%",marginTop:"20%",padding:"2%"}} bsStyle="light" onClick={e => this.handleInputChange(e=3)} >START</Button>
+          <Button style={startButtonStyle} bsStyle="warning" onClick={e => this.handleInputChange(e=3)} >START</Button>
         </div>
      
         <ModalIstruction/>
-        <div id='600' draggable = "false" style={{display:'none' ,position:"relative",marginLeft:"20%",marginTop:"5%"}}>
-        <img src={this.state.image} className="im" id="500" width="250" height="320"   draggable = "false" />   
-          <div id= 'bords'  style= {{display: "grid", 'grid-gap': "1%", 'grid-template-columns': "auto auto", padding:"1%"}}>
+        <div id='600' draggable = "false" style={{display:'none' ,position:"relative",marginLeft:"10%",marginTop:"5%",fontFamily:"cursive"}}>
+        <img src={this.state.image} style={{width:"17%",marginTop:"5%"}} className="im" id="500" draggable = "false" />   
+          <div id= 'bords'  style= {{display: "grid", 'grid-gap': "1%", 'grid-template-columns': "auto auto auto", padding:"1%"}}>
            <div id = 'playerBord'>
-             <h1 style={{textAlign:"left",color:"white"}}>PLAYER</h1>
+             <h1 style={{textAlign:"left",color:"Orange"}}>YOU</h1>
             <Bord gridSize={this.state.input_num} mistakes={()=>this.mistakes()} moves={()=>this.moves()} checkWin={()=>this.checkWin()} pacer={false} style= {{float: 'left',overflow: 'auto'}}></Bord>
             </div>
             <PacerBord typeGame= {this.state.typeGame} ready={()=> this.ready()} p={this.state.p} gridSize={this.state.input_num} algorithem={()=>this.algorithem()}  firstTime={this.state.firstTime} flag={this.state.flag} isFinished={this.state.isFinished} mistakes={()=>this.mistakes()} moves={()=>this.moves()} score= {this.state.score} checkWin={()=>this.checkWin()} ></PacerBord>
@@ -281,7 +291,7 @@ clean(){
                           <p> Moves: {this.state.totalMoves}
                           </p>
   
-                          <Button bsStyle="success" onClick={()=>this.handleNextLevel()}>Next Level</Button>
+                          <Button bsStyle="warning" onClick={()=>this.handleNextLevel()}>Next Level</Button>
                           </Modal>
           </div>
             <div id= 'PuzzlePieces' style={{ position:"relative",overflow: 'auto' ,width:'70%',left:"24%"}}>

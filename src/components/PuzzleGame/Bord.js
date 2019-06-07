@@ -52,6 +52,7 @@ class Bord extends Component {
                 
                 /*'grid-template-rows': str ,*/
                 
+                padding:0
               
         };
         

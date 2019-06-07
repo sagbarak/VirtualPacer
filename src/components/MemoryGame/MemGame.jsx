@@ -19,6 +19,7 @@ import card15 from '../../graphics/card15.jpg';
 import card16 from '../../graphics/card16.png';
 import card17 from '../../graphics/card17.jpg';
 import card18 from '../../graphics/card18.png';
+import example from '../../graphics/meminst.jpg';
 import './MemGame.css';
 
 Modal.setAppElement(document.getElementById('root'))
@@ -28,8 +29,8 @@ const modalStyle = {
         position: 'fixed',
         marginTop: "10%",
         marginLeft: "20%",
-        marginRight: "20%",
-        marginBottom: "10%",
+        marginRight: "30%",
+        marginBottom: "5%",
         backgroundColor: 'rgba(255, 255, 255, 0.0)'
     },
     content: {
@@ -78,11 +79,13 @@ class MemGame extends Component {
                         <h3>Memory Game</h3>
                         <p>In this game, there are an even number of cards.</p>
                         <p>Your goal is to find all pairs of cards.</p>
-                        <p>Each time you turn two different card it will count as a mistake, so pay attention!</p>
-                        <p>At the end of the level your results will be shown to you</p>
+                        <p>On the left side of the screen you will see your opponenet board and his progress.</p>
+                        <p>Can you find all the pairs faster then your opponent?</p>
 
                         <h5>Good Luck!</h5>
-                        <Button className="btn btn-success" onClick={this.handleCloseModal.bind(this)}>OK</Button>
+                        <Button className="btn btn-warning" onClick={this.handleCloseModal.bind(this)}>Let's Go!</Button>
+                        <h6 style={{paddingTop:"2%"}}>Example:</h6>
+                        <img src={example} style={{width:"70%",padding:0,position:"relative", top:"62%", left:"10%"}} />
                     </div>
                 </Modal>
 

@@ -1,5 +1,6 @@
 .bgStyle{
-    background-image: url(../graphics/bg-02.png);
+    /*background-image: url(../graphics/bg-02.png);*/
+    background-color:burlywood;
     height: 100vh;
     padding: 2%;
     background-repeat: no-repeat;

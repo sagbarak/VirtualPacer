@@ -34,32 +34,34 @@ const modalStyle = {
 const level1Style = {
     display: "grid",
     gridTemplateColumns: "auto auto auto auto auto",
-    width:"80%"
+    width:"80%",
+    padding:0,
+    margin:0
 }
 const level2Style = {
     display: "grid",
     gridTemplateColumns: "auto auto auto auto",
-    width:"80%"
+    width:"80%",
+    padding:0
 }
 
 const btnStyle = {
     padding: "0.5%"
 };
 
-const titleStyle = {
-    width: "100%",
-    color: "black",
-    position: "center",
-    margin: "auto",
-    textAlign: "center"
+const instButtonStyle = {
+   position: "relative",
+   padding: "0.5%"
 }
 
-const cardWrapper = {
-    position: "relative",
-    left: "20%",
-    top: "40px",
-    width: "40%",
-    height: "60%"
+const startButtonStyle={
+    marginLeft:"44%",
+    marginTop:"10%",
+    padding:"2%",
+    borderRadius:"100px",
+    fontFamily:"cursive", 
+    fontSize:"30px",
+    color:"rgb(176,76,0)"
 }
 
 const cardStyle={
@@ -68,6 +70,23 @@ const cardStyle={
     padding: 10,
     borderRadius: 100,
     border: "black"
+}
+
+const gameStyle={
+    display:"grid",
+    gridTemplateColumns:"auto auto",
+    gridColumnGap:"10px",
+    width:"80%",
+    marginLeft:"10%",
+    marginTop:"2%",
+    fontFamily: "cursive",
+}
+
+const boardBorder = {
+    backgroundColor:"rgb(255,251,238)",
+    borderRadius: "10px",
+    border:"1px solid",
+    padding:"1%",
 }
 
 const sleep = (milliseconds) => {
@@ -176,18 +195,20 @@ class Board extends Component {
                         <p>You had {this.state.mistakes} mistakes</p>
                         
 
-                        <div style={btnStyle}><Button style={btnStyle} bsStyle="success"
+                        <div style={btnStyle}><Button style={btnStyle} bsStyle="warning"
                             onClick={() => { this.handleNextLevel() }}>Next Level</Button></div>
                     </div>
                 </Modal>
+                
+                <div style={instButtonStyle}><Button bsStyle="warning" onClick={this.props.openInsturction}>Instruction</Button></div>
 
                 {this.state.gameStart? 
-                    <div style={{display:"grid",gridTemplateColumns:"auto auto",gridColumnGap:"10px",width:"80%",marginLeft:"20%",marginTop:"5%"}}>
-                        <div>
-                        <h2 style={{color:"white"}}>PLAYER</h2>
+                    <div style={gameStyle}>
+                        <div style={boardBorder}>
+                        <h2 style={{color:"orange"}}>YOU</h2>
                             {this.renderBoard()}
                         </div>
-                        <div>
+                        <div style={boardBorder}>
                             <h2 style={{left:"40%"}}>OPPONENT</h2>
                             {this.renderOpponentBoard()}
                             <Algorithem typeGame= {"memory"} gridSize={this.state.oppBoard.length/2} algorithem={()=>{this.PacerAction()}} 
@@ -197,13 +218,13 @@ class Board extends Component {
                     </div>
                     :
                     <div>
-                        <Button style={{marginLeft:"45%",marginTop:"20%",padding:"2%"}} bsStyle="light" 
+                        <Button 
+                            style={startButtonStyle} bsStyle="warning" 
                             onClick={()=>{this.setState({gameStart:true}); this.countSeconds()}}>Start</Button>
                     </div>
                 }
-                <div style={{ position: "fixed", top: "35%", left: "3%" }}>
-                    <div style={{ padding: "0.5%" }}><Button bsStyle="light" onClick={this.props.openInsturction}>Instruction</Button></div>
-                </div>
+                
+               
 
             </div>
         );

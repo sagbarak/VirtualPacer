@@ -2,7 +2,13 @@ import './App.css'
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap';
 import Modal from 'react-modal';
+import example from '../../graphics/puzzleinst.JPG';
 
+const instButtonStyle = {
+  position: "absolute",
+  bottom:"92%",
+  padding: "0.5%"
+}
 class ModalIstruction extends Component {
     constructor(props){
         super(props);
@@ -42,7 +48,7 @@ class ModalIstruction extends Component {
             marginTop: "10%",
             marginLeft: "20%",
             marginRight: "20%",
-            marginBottom: "10%",
+            marginBottom: "1%",
             backgroundColor: 'rgba(255, 255, 255, 0.0)'
         },
         content: {
@@ -60,18 +66,22 @@ class ModalIstruction extends Component {
         
         return(
         <div id = "Modal">
+           <div style={instButtonStyle}><Button bsStyle="warning" onClick={this.handleOpenModal.bind(this)}>Instruction</Button></div>
+
          <Modal isOpen={this.state.instruction} style={modalStyle}>
                     <h3>Puzzle Game</h3>
-                    <p>In this game, there are puzzle pieces that in the right combination will create a fixed image.</p>
-                    <p>Your goal is to find this combination and to restore the picture. You have the whole image on the left to help you.</p>
-                    <p>At the end of the level your results will be shown to you</p>
-                    <p>Notice! if you drag a piece over another piece they will switch, mistake will be considered only if the piece that you drag isn't in the right place</p>
+                    <p>In this game you need to build the puzzle as shown on the picture.</p>
+                    <p>Below are the puzzle pieces to build the puzzle.</p>
+                    <p>Drag them to the right square on the right board.</p>
+                    <p>Can you do it faster than your opponent?</p>
 
                     <h5>Good Luck!</h5>
-                    <Button className="btn btn-success" onClick={this.handleCloseModal.bind(this)}>OK</Button>
+                    <Button className="btn btn-warning" onClick={this.handleCloseModal.bind(this)}>Let's Go!</Button>
+                    <h6 style={{paddingTop:"2%"}}>Example:</h6>
+                    <img src={example} style={{width:"60%",padding:0,position:"relative", top:"3%", left:"15%"}} />
                 </Modal>  
                
-                <div style={{position:"fixed",top:"35%",left:"2.5%", padding:"0.5%"}}><Button bsStyle="light" onClick={this.handleOpenModal.bind(this)}>Instruction</Button></div>
+               
          </div>
    
 
