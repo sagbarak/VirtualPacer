@@ -269,7 +269,7 @@ clean(){
         <ModalIstruction/>
         <div id='600' draggable = "false" style={{display:'none' ,position:"relative",marginLeft:"10%",marginTop:"5%",fontFamily:"cursive"}}>
         <img src={this.state.image} style={{width:"17%",marginTop:"5%"}} className="im" id="500" draggable = "false" />   
-          <div id= 'bords'  style= {{display: "grid", 'grid-gap': "1%", 'grid-template-columns': "auto auto auto", padding:"1%"}}>
+          <div id= 'bords'  style= {{display: "grid", 'grid-gap': "2%", 'grid-template-columns': "auto auto", padding:"1%"}}>
            <div id = 'playerBord'>
              <h1 style={{textAlign:"left",color:"Orange"}}>YOU</h1>
             <Bord gridSize={this.state.input_num} mistakes={()=>this.mistakes()} moves={()=>this.moves()} checkWin={()=>this.checkWin()} pacer={false} style= {{float: 'left',overflow: 'auto'}}></Bord>

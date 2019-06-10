@@ -79,7 +79,7 @@ class MemGame extends Component {
                         <h3>Memory Game</h3>
                         <p>In this game, there are an even number of cards.</p>
                         <p>Your goal is to find all pairs of cards.</p>
-                        <p>On the left side of the screen you will see your opponenet board and his progress.</p>
+                        <p>On the right side of the screen you will see your opponenet board and his progress.</p>
                         <p>Can you find all the pairs faster then your opponent?</p>
 
                         <h5>Good Luck!</h5>

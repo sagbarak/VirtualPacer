@@ -289,43 +289,42 @@ class Board extends Component {
         let newState = this.state;
         console.log("id " + id);
         console.log("last id " + newState.lastId);
-       /* if (!newState.firstClick) {
-            newState.firstClick = true;
-            this.countSeconds();
-        }*/
-        newState.board.map(card => {
-            if (card.id === id) { //find card by id
-                if (!card.faceUp) { //if card is face down, you can flip it
-                    newState.moves++;
-                    if (newState.numOfOpenCards < 2) { // if less then 2 cards are open you can flip with no check
-                        card.faceUp = true;
-                        newState.numOfOpenCards += 1;
-                        console.log(newState.numOfOpenCards);
-                    }
-                    if (newState.numOfOpenCards === 2) { //comparsion of cards 
-                        console.log("2 cards check")
-                        newState.board.map(card2 => {
-                            if (card2.id === newState.lastId) {
-                                console.log("found second card");
-                                if (card2.imgUrl === card.imgUrl) {
-                                    card.paired = true;
-                                    card2.paired = true;
-                                    newState.matchCounter++;
+        
+        if(newState.numOfOpenCards!==2){
+            newState.board.map(card => {
+                if (card.id === id) { //find card by id
+                    if (!card.faceUp) { //if card is face down, you can flip it
+                        newState.moves++;
+                        if (newState.numOfOpenCards < 2) { // if less then 2 cards are open you can flip with no check
+                            card.faceUp = true;
+                            newState.numOfOpenCards += 1;
+                            console.log(newState.numOfOpenCards);
+                        }
+                        if (newState.numOfOpenCards === 2) { //comparsion of cards 
+                            console.log("2 cards check")
+                            newState.board.map(card2 => {
+                                if (card2.id === newState.lastId) {
+                                    console.log("found second card");
+                                    if (card2.imgUrl === card.imgUrl) {
+                                        card.paired = true;
+                                        card2.paired = true;
+                                        newState.matchCounter++;
+                                    }
+                                    else if (card2.imgUrl !== card.imgUrl) {
+                                        sleep(500).then(() => {
+                                            card.faceUp = false;
+                                            card2.faceUp = false;
+                                            this.setState({ mistakes: this.state.mistakes + 1 });
+                                        })
+                                    }
                                 }
-                                else if (card2.imgUrl !== card.imgUrl) {
-                                    sleep(500).then(() => {
-                                        card.faceUp = false;
-                                        card2.faceUp = false;
-                                        this.setState({ mistakes: this.state.mistakes + 1 });
-                                    })
-                                }
-                            }
-                        })
-                        newState.numOfOpenCards = 0;
+                            })
+                            newState.numOfOpenCards = 0;
+                        }
                     }
                 }
-            }
-        })
+            })
+    }
         newState.lastId = id;
         this.setState(newState);
         this.checkIfGameOver();

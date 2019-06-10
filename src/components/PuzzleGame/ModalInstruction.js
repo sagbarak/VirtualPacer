@@ -72,7 +72,8 @@ class ModalIstruction extends Component {
                     <h3>Puzzle Game</h3>
                     <p>In this game you need to build the puzzle as shown on the picture.</p>
                     <p>Below are the puzzle pieces to build the puzzle.</p>
-                    <p>Drag them to the right square on the right board.</p>
+                    <p>Drag them to the fitting square on the left board.</p>
+                    <p>On the right screen you will see your opponent progress.</p>
                     <p>Can you do it faster than your opponent?</p>
 
                     <h5>Good Luck!</h5>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import blankCard from '../../graphics/blank.png';
+import './card.css';
 
 
 const cardStyle={
@@ -23,7 +24,7 @@ class Card extends Component {
             image=blankCard;
         }
         return ( 
-                <img style={cardStyle} src={image} onClick={this.props.flipCard.bind(this,id)} />
+                <img className="row-of-icons" style={cardStyle} src={image} onMouseDown={this.props.flipCard.bind(this,id)} />
         );
     }
 }
